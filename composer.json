@@ -1,0 +1,34 @@
+{
+    "name": "acelaya/doctrine-enum-type",
+    "description": "A custom Doctrine type that maps column values to enum objects using myclabs/php-enum",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alejandro Celaya",
+            "email": "alejandro@alejandrocelaya.com"
+        }
+    ],
+    "keywords": [
+        "type",
+        "doctrine",
+        "enum"
+    ],
+    "require": {
+        "myclabs/php-enum": "~1.4",
+        "doctrine/dbal": "~2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.0",
+        "squizlabs/php_codesniffer": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Acelaya\\Doctrine\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Acelaya\\Test\\Doctrine\\": "tests"
+        }
+    }
+}
