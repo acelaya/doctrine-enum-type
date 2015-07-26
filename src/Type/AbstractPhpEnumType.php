@@ -41,7 +41,7 @@ abstract class AbstractPhpEnumType extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        return 'VARCHAR(256) COMMENT "php_enum: values"';
+        return 'VARCHAR(256) COMMENT "php_enum"';
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
