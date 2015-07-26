@@ -1,5 +1,12 @@
 # Doctrine Enum Type
 
+[![Build Status](https://travis-ci.org/acelaya/doctrine-enum-type.svg?branch=master)](https://travis-ci.org/acelaya/doctrine-enum-type)
+[![Code Coverage](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
+[![Latest Stable Version](https://poser.pugx.org/acelaya/doctrine-enum-type/v/stable.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+[![Total Downloads](https://poser.pugx.org/acelaya/doctrine-enum-type/downloads.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+[![License](https://poser.pugx.org/acelaya/doctrine-enum-type/license.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+
 This package provides a base abstract implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclkabs/php-enum](https://github.com/myclabs/php-enum) package.
 
 ### Installation
