@@ -97,7 +97,7 @@ class ActionEnumType extends AbstractPhpEnumType
 
 The type just need to have two things:
 
-* The method `getSpecificName()`, which returns the specific part of the type. For example, if that method returns the string 'action', you weill have to use the type name 'php_enum_action'. The type name is created by simply running `sprintf('php_enum_%s', $this->getSpecificName())`.
+* The method `getSpecificName()`, which returns the specific part of the type. For example, if that method returns the string 'action', you will have to use the type name 'php_enum_action'. The type name is created by simply running `sprintf('php_enum_%s', $this->getSpecificName())`.
 * The property `$enumType` with the fully qualified name of the enum class to map.
 
 Finally, you just need to register your custom doctrine types:
@@ -110,6 +110,7 @@ Finally, you just need to register your custom doctrine types:
 
 use Doctrine\DBAL\Types\Type;
 use Acelaya\Enum\Action;
+use Acelaya\Enum\Another;
 use Acelaya\Enum\Foo;
 
 // ...
