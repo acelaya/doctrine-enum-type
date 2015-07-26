@@ -14,6 +14,7 @@
         "enum"
     ],
     "require": {
+        "php": ">=5.4",
         "myclabs/php-enum": "~1.4",
         "doctrine/dbal": "~2.4"
     },
