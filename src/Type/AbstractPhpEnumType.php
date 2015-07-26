@@ -6,11 +6,11 @@ use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 
 /**
- * Class PhpEnumType
+ * Class AbstractPhpEnumType
  * @author Alejandro Celaya Alastrué
  * @link http://www.alejandrocelaya.com
  */
-abstract class PhpEnumType extends Type
+abstract class AbstractPhpEnumType extends Type
 {
     const NAME_PATTERN = 'php_enum_%s';
 
