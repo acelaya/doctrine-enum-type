@@ -116,16 +116,16 @@ Finally, you just need to register your custom doctrine types:
 // ...
 
 use Doctrine\DBAL\Types\Type;
-use Acelaya\Enum\Action;
-use Acelaya\Enum\Another;
-use Acelaya\Enum\Foo;
+use Acelaya\Type\ActionEnumType;
+use Acelaya\Type\AnotherEnumType;
+use Acelaya\Type\FooEnumType;
 
 // ...
 
 // Register my types
-Type::addType('php_enum_action', Action::class);
-Type::addType('php_enum_another', Another::class);
-Type::addType('php_enum_foo', Foo::class);
+Type::addType('php_enum_action', ActionEnumType::class);
+Type::addType('php_enum_another', AnotherEnumType::class);
+Type::addType('php_enum_foo', FooEnumType::class);
 ```
 
 Do the same for each concrete enum you want to register.
