@@ -75,6 +75,12 @@ class AbstractPhpEnumTypeTest extends TestCase
         $this->assertEquals(Action::DELETE, $value->getValue());
     }
 
+    public function testConvertToPHPValueWithNull()
+    {
+        $value = $this->type->convertToPHPValue(null, $this->platform);
+        $this->assertSame(null, $value);
+    }
+
     /**
      * @expectedException \Acelaya\Doctrine\Exception\InvalidArgumentException
      */

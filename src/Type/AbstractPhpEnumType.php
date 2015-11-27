@@ -44,8 +44,17 @@ abstract class AbstractPhpEnumType extends Type
         return 'VARCHAR(256) COMMENT "php_enum"';
     }
 
+    /**
+     * @param string $value
+     * @param AbstractPlatform $platform
+     * @return mixed
+     */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
+        if (is_null($value)) {
+            return null;
+        }
+
         $isValid = call_user_func([$this->enumType, 'isValid'], $value);
         if (! $isValid) {
             throw new InvalidArgumentException(sprintf(
