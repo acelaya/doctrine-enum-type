@@ -42,8 +42,12 @@ class AbstractPhpEnumTypeTest extends TestCase
 
     public function testGetSQLDeclaration()
     {
+        $this->platform
+            ->method('getVarcharTypeDeclarationSQL')
+            ->will($this->returnValue('declaration'));
+
         $this->assertEquals(
-            'VARCHAR(256) COMMENT "php_enum"',
+            'declaration',
             $this->type->getSQLDeclaration([], $this->platform)
         );
     }
