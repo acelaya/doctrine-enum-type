@@ -89,7 +89,7 @@ class PhpEnumType extends Type
         }
 
         // Register and customize the type
-        self::addType($typeName, $enumClass);
+        self::addType($typeName, __CLASS__);
         /** @var PhpEnumType $type */
         $type = self::getType($typeName);
         $type->name = $typeName;
