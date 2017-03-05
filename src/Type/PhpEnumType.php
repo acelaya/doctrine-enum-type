@@ -2,6 +2,7 @@
 namespace Acelaya\Doctrine\Type;
 
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
+use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;
@@ -15,7 +16,7 @@ class PhpEnumType extends Type
     /**
      * @var string
      */
-    private $enumClass;
+    private $enumClass = Enum::class;
 
     /**
      * Gets the name of this type.
@@ -74,6 +75,7 @@ class PhpEnumType extends Type
      * @param $typeNameOrEnumClass
      * @param null $enumClass
      * @throws InvalidArgumentException
+     * @throws DBALException
      */
     public static function registerEnumType($typeNameOrEnumClass, $enumClass = null)
     {
@@ -89,7 +91,7 @@ class PhpEnumType extends Type
         }
 
         // Register and customize the type
-        self::addType($typeName, __CLASS__);
+        self::addType($typeName, static::class);
         /** @var PhpEnumType $type */
         $type = self::getType($typeName);
         $type->name = $typeName;
@@ -99,6 +101,7 @@ class PhpEnumType extends Type
     /**
      * @param array $types
      * @throws InvalidArgumentException
+     * @throws DBALException
      */
     public static function registerEnumTypes(array $types)
     {
