@@ -1,6 +1,4 @@
 <?php
-declare(strict_types = 1);
-
 namespace Acelaya\Test\Doctrine\Type;
 
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
@@ -168,5 +166,17 @@ class PhpEnumTypeTest extends TestCase
             implode('", "', Action::toArray())
         ));
         $type->convertToPHPValue('invalid', $this->platform->reveal());
+    }
+
+    /**
+     * @test
+     */
+    public function usingChildEnumTypeRegisteredValueIsCorrect()
+    {
+        MyType::registerEnumType(Action::class);
+        $type = Type::getType(Action::class);
+
+        $this->assertInstanceOf(MyType::class, $type);
+        $this->assertEquals('FOO BAR', $type->getSQLDeclaration([], $this->platform->reveal()));
     }
 }
