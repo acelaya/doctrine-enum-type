@@ -134,12 +134,12 @@ If you need more information on custom doctrine column types, read this http://d
 
 ### Customize SQL declaration
 
-All the doctrine types must define the SQL declaration of the column. By default, the `Acelaya\Doctrine\Type\AbstractPhpEnumType` class defines it as a VARCHAR like this:
+All the doctrine types must define the SQL declaration of the column. By default, the `Acelaya\Doctrine\Type\AbstractPhpEnumType` class defines it as a VARCHAR(255) like this:
 
 ```php
 public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
 {
-    return 'VARCHAR(256) COMMENT "php_enum"';
+    return $platform->getVarcharTypeDeclarationSQL([]);
 }
 ```
 
