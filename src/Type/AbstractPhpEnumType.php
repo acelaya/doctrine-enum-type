@@ -4,6 +4,7 @@ namespace Acelaya\Doctrine\Type;
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
+use MyCLabs\Enum\Enum;
 
 /**
  * Class AbstractPhpEnumType
@@ -14,7 +15,7 @@ abstract class AbstractPhpEnumType extends Type
 {
     const NAME_PATTERN = 'php_enum_%s';
 
-    protected $enumType = 'MyCLabs\Enum\Enum';
+    protected $enumType = Enum::class;
 
     /**
      * Gets the name of this type.
@@ -35,7 +36,7 @@ abstract class AbstractPhpEnumType extends Type
      * Gets the SQL declaration snippet for a field of this type.
      *
      * @param array $fieldDeclaration The field declaration.
-     * @param \Doctrine\DBAL\Platforms\AbstractPlatform $platform The currently used database platform.
+     * @param AbstractPlatform $platform The currently used database platform.
      *
      * @return string
      */
@@ -48,10 +49,11 @@ abstract class AbstractPhpEnumType extends Type
      * @param string $value
      * @param AbstractPlatform $platform
      * @return mixed
+     * @throws InvalidArgumentException
      */
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        if (is_null($value)) {
+        if ($value === null) {
             return null;
         }
 
@@ -61,7 +63,7 @@ abstract class AbstractPhpEnumType extends Type
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 $value,
                 $this->enumType,
-                implode('", "', call_user_func([$this->enumType, 'keys']))
+                implode('", "', call_user_func([$this->enumType, 'toArray']))
             ));
         }
 

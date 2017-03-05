@@ -1,6 +1,7 @@
 <?php
 namespace Acelaya\Test\Doctrine\Type;
 
+use Acelaya\Doctrine\Exception\InvalidArgumentException;
 use Acelaya\Test\Doctrine\Enum\Action;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
@@ -37,12 +38,18 @@ class AbstractPhpEnumTypeTest extends TestCase
         $this->platform = $this->prophesize(AbstractPlatform::class);
     }
 
-    public function testGetName()
+    /**
+     * @test
+     */
+    public function getNameReturnsCorrectValue()
     {
         $this->assertEquals(self::EXPECTED_NAME, $this->type->getName());
     }
 
-    public function testGetSQLDeclaration()
+    /**
+     * @test
+     */
+    public function getSQLDeclaration()
     {
         $this->platform->getVarcharTypeDeclarationSQL(Argument::cetera())->willReturn('declaration');
 
@@ -52,7 +59,10 @@ class AbstractPhpEnumTypeTest extends TestCase
         );
     }
 
-    public function testConvertToDatabaseValue()
+    /**
+     * @test
+     */
+    public function convertToDatabaseValue()
     {
         $value = Action::CREATE();
         $this->assertEquals(Action::CREATE, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
@@ -67,7 +77,10 @@ class AbstractPhpEnumTypeTest extends TestCase
         $this->assertEquals(Action::DELETE, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
     }
 
-    public function testConvertToPHPValueWithValidValue()
+    /**
+     * @test
+     */
+    public function convertToPHPValueWithValidValue()
     {
         /** @var Action $value */
         $value = $this->type->convertToPHPValue(Action::CREATE, $this->platform->reveal());
@@ -79,17 +92,26 @@ class AbstractPhpEnumTypeTest extends TestCase
         $this->assertEquals(Action::DELETE, $value->getValue());
     }
 
-    public function testConvertToPHPValueWithNull()
+    /**
+     * @test
+     */
+    public function convertToPHPValueWithNull()
     {
         $value = $this->type->convertToPHPValue(null, $this->platform->reveal());
         $this->assertEquals(null, $value);
     }
 
     /**
-     * @expectedException \Acelaya\Doctrine\Exception\InvalidArgumentException
+     * @test
      */
-    public function testConvertToPHPValueWithInvalidValue()
+    public function convertToPHPValueWithInvalidValue()
     {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage(sprintf(
+            'The value "invalid" is not valid for the enum "%s". Expected one of ["%s"]',
+            Action::class,
+            implode('", "', Action::toArray())
+        ));
         $this->type->convertToPHPValue('invalid', $this->platform->reveal());
     }
 }
