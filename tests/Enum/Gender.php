@@ -1,6 +1,4 @@
 <?php
-declare(strict_types = 1);
-
 namespace Acelaya\Test\Doctrine\Enum;
 
 use MyCLabs\Enum\Enum;
