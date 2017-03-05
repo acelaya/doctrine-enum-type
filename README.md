@@ -7,7 +7,7 @@
 [![Total Downloads](https://poser.pugx.org/acelaya/doctrine-enum-type/downloads.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
 [![License](https://poser.pugx.org/acelaya/doctrine-enum-type/license.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
 
-This package provides a base abstract implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
+This package provides a base implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
 
 ### Installation
 
@@ -15,9 +15,11 @@ Install this package using [composer](https://getcomposer.org/) by running `comp
 
 ### Usage
 
-Since each type will be mapped to a different Enum class, you have to define your concrete implementation of that type by extending the `Acelaya\Doctrine\Type\AbstractPhpEnumType`.
+This package provides a `Acelaya\Doctrine\Type\PhpEnumType` class that extends `Doctrine\DBAL\Types\Type`. You can use it to easily map type names to concrete Enums.
 
-Let's imagine we have this enum.
+The `PhpEnumType` class will be used as the doctrine type for every property that is an enumeration.
+
+Let's imagine we have this two enums.
 
 ```php
 <?php
@@ -34,20 +36,34 @@ class Action extends Enum
 }
 ```
 
-And this entity, with a column of type `Acelaya\Enum\Action`.
+```php
+<?php
+namespace Acelaya\Enum;
+
+use MyCLabs\Enum\Enum;
+
+class Gender extends Enum
+{
+    const MALE      = 'male';
+    const FEMALE    = 'female';
+}
+```
+
+And this entity, with a column of each entity type.
 
 ```php
 <?php
 namespace Acelaya\Entity;
 
 use Acelaya\Enum\Action;
+use Acelaya\Enum\Gender;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="my_entities")
+ * @ORM\Table(name="users")
  */
-class MyEntity
+class User
 {
     /**
      * @var int
@@ -66,48 +82,21 @@ class MyEntity
     /**
      * @var Action
      *
-     * @ORM\Column(type="php_enum_action")
+     * @ORM\Column(type=Action::class)
      */
     protected $action;
+    /**
+     * @var Gender
+     *
+     * @ORM\Column(type="php_enum_gender")
+     */
+    protected $gender;
 
     // Getters and setters...
 }
 ```
 
-The column type of the action property is **php_enum_action**. To get this working, you have to define and register the concrete column type.
-
-Start by creating the type class.
-
-```php
-<?php
-namespace Acelaya\Type;
-
-use Acelaya\Doctrine\Type\AbstractPhpEnumType;
-use Acelaya\Enum\Action;
-
-class ActionEnumType extends AbstractPhpEnumType
-{
-    /**
-     * You have to define this so that type mapping is properly performed
-     */
-    protected $enumType = Action::class;
-
-    /**
-     * @return string
-     */
-    protected function getSpecificName()
-    {
-        return 'action';
-    }
-}
-```
-
-The type just need to have two things:
-
-* The method `getSpecificName()`, which returns the specific part of the type. For example, if that method returns the string 'action', you will have to use the type name 'php_enum_action'. The type name is created by simply running `sprintf('php_enum_%s', $this->getSpecificName())`.
-* The property `$enumType` with the fully qualified name of the enum class to map.
-
-Finally, you just need to register your custom doctrine types:
+The column type of the action property is the FQCN of the `Action` enum, and the gender column type is **php_enum_gender**. To get this working, you have to register the concrete column types, using the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumType` static method.
 
 ```php
 <?php
@@ -115,44 +104,85 @@ Finally, you just need to register your custom doctrine types:
 
 // ...
 
-use Doctrine\DBAL\Types\Type;
-use Acelaya\Type\ActionEnumType;
-use Acelaya\Type\AnotherEnumType;
-use Acelaya\Type\FooEnumType;
+use Acelaya\Doctrine\Type\PhpEnumType;
+use Acelaya\Enum\Action;
+use Acelaya\Enum\Gender;
 
 // ...
 
 // Register my types
-Type::addType('php_enum_action', ActionEnumType::class);
-Type::addType('php_enum_another', AnotherEnumType::class);
-Type::addType('php_enum_foo', FooEnumType::class);
+PhpEnumType::registerEnumType(Action::class);
+PhpEnumType::registerEnumType('php_enum_gender', Gender::class);
 ```
+
+That will internally register a customized doctrine type. As you can see, it its possible to just pass the FQCN of the enum, making the type use it as the name, but you can also provide a different name.
+
+Alternatively you can use the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumTypes`, which expects an array of enums to register.
+
+```php
+<?php
+// ...
+
+use Acelaya\Doctrine\Type\PhpEnumType;
+use Acelaya\Enum\Action;
+use Acelaya\Enum\Gender;
+
+PhpEnumType::registerEnumTypes([
+    Action::class,
+    'php_enum_gender' => Gender::class,
+]);
+```
+
+With this method, elements with a string key will be registered with that name, and elements with integer key will use the value as the type name.
 
 Do the same for each concrete enum you want to register.
 
-If you need more information on custom doctrine column types, read this http://doctrine-orm.readthedocs.org/en/latest/cookbook/custom-mapping-types.html
+If you need more information on custom doctrine column types, read this http://doctrine-orm.readthedocs.io/en/latest/cookbook/custom-mapping-types.html
 
 ### Customize SQL declaration
 
-All the doctrine types must define the SQL declaration of the column. By default, the `Acelaya\Doctrine\Type\AbstractPhpEnumType` class defines it as a VARCHAR like this:
+By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as as a VARCHAR(255) like this:
 
 ```php
 public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
 {
-    return 'VARCHAR(256) COMMENT "php_enum"';
+    return $platform->getVarcharTypeDeclarationSQL([]);
 }
 ```
 
-If you want something more specific, like a MySQL enum, just overwrite the `getSQLDeclaration()` method with something like this.
+If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
 
 ```php
-public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+namespace App\Type;
+
+use Acelaya\Doctrine\Type\PhpEnumType;
+
+class MyPhpEnumType extends PhpEnumType
 {
-    $values = call_user_func([$this->enumType, 'toArray']);
-    return sprintf(
-        'ENUM("%s") COMMENT "%s"',
-        implode('", "', $values),
-        $this->getName()
-    );
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    {
+        $values = call_user_func([$this->enumType, 'toArray']);
+        return sprintf(
+            'ENUM("%s") COMMENT "%s"',
+            implode('", "', $values),
+            $this->getName()
+        );
+    }
 }
+```
+
+Then remember to register the enums with your own class.
+
+```php
+<?php
+// ...
+
+use Acelaya\Enum\Action;
+use Acelaya\Enum\Gender;
+use App\Type\MyPhpEnumType;
+
+MyPhpEnumType::registerEnumTypes([
+    Action::class,
+    'php_enum_gender' => Gender::class,
+]);
 ```
