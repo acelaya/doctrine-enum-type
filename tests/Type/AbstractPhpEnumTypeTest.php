@@ -4,7 +4,9 @@ namespace Acelaya\Test\Doctrine\Type;
 use Acelaya\Test\Doctrine\Enum\Action;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
-use PHPUnit_Framework_TestCase as TestCase;
+use PHPUnit\Framework\TestCase;
+use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 
 /**
  * Class AbstractPhpEnumTypeTest
@@ -20,19 +22,19 @@ class AbstractPhpEnumTypeTest extends TestCase
      */
     protected $type;
     /**
-     * @var AbstractPlatform
+     * @var ObjectProphecy
      */
     protected $platform;
 
     public static function setUpBeforeClass()
     {
-        Type::addType(self::EXPECTED_NAME, 'Acelaya\Test\Doctrine\Type\ActionEnumType');
+        Type::addType(self::EXPECTED_NAME, ActionEnumType::class);
     }
 
     public function setUp()
     {
         $this->type = Type::getType(self::EXPECTED_NAME);
-        $this->platform = $this->getMock('Doctrine\DBAL\Platforms\AbstractPlatform');
+        $this->platform = $this->prophesize(AbstractPlatform::class);
     }
 
     public function testGetName()
@@ -42,47 +44,45 @@ class AbstractPhpEnumTypeTest extends TestCase
 
     public function testGetSQLDeclaration()
     {
-        $this->platform
-            ->method('getVarcharTypeDeclarationSQL')
-            ->will($this->returnValue('declaration'));
+        $this->platform->getVarcharTypeDeclarationSQL(Argument::cetera())->willReturn('declaration');
 
         $this->assertEquals(
             'declaration',
-            $this->type->getSQLDeclaration([], $this->platform)
+            $this->type->getSQLDeclaration([], $this->platform->reveal())
         );
     }
 
     public function testConvertToDatabaseValue()
     {
         $value = Action::CREATE();
-        $this->assertEquals(Action::CREATE, $this->type->convertToDatabaseValue($value, $this->platform));
+        $this->assertEquals(Action::CREATE, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
 
         $value = Action::READ();
-        $this->assertEquals(Action::READ, $this->type->convertToDatabaseValue($value, $this->platform));
+        $this->assertEquals(Action::READ, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
 
         $value = Action::UPDATE();
-        $this->assertEquals(Action::UPDATE, $this->type->convertToDatabaseValue($value, $this->platform));
+        $this->assertEquals(Action::UPDATE, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
 
         $value = Action::DELETE();
-        $this->assertEquals(Action::DELETE, $this->type->convertToDatabaseValue($value, $this->platform));
+        $this->assertEquals(Action::DELETE, $this->type->convertToDatabaseValue($value, $this->platform->reveal()));
     }
 
     public function testConvertToPHPValueWithValidValue()
     {
         /** @var Action $value */
-        $value = $this->type->convertToPHPValue(Action::CREATE, $this->platform);
-        $this->assertInstanceOf('Acelaya\Test\Doctrine\Enum\Action', $value);
+        $value = $this->type->convertToPHPValue(Action::CREATE, $this->platform->reveal());
+        $this->assertInstanceOf(Action::class, $value);
         $this->assertEquals(Action::CREATE, $value->getValue());
 
-        $value = $this->type->convertToPHPValue(Action::DELETE, $this->platform);
-        $this->assertInstanceOf('Acelaya\Test\Doctrine\Enum\Action', $value);
+        $value = $this->type->convertToPHPValue(Action::DELETE, $this->platform->reveal());
+        $this->assertInstanceOf(Action::class, $value);
         $this->assertEquals(Action::DELETE, $value->getValue());
     }
 
     public function testConvertToPHPValueWithNull()
     {
-        $value = $this->type->convertToPHPValue(null, $this->platform);
-        $this->assertSame(null, $value);
+        $value = $this->type->convertToPHPValue(null, $this->platform->reveal());
+        $this->assertEquals(null, $value);
     }
 
     /**
@@ -90,6 +90,6 @@ class AbstractPhpEnumTypeTest extends TestCase
      */
     public function testConvertToPHPValueWithInvalidValue()
     {
-        $this->type->convertToPHPValue('invalid', $this->platform);
+        $this->type->convertToPHPValue('invalid', $this->platform->reveal());
     }
 }
