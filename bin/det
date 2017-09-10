@@ -24,9 +24,9 @@ foreach ($directories as $directory) {
     }
 }
 if (! file_exists($configFile)) {
-    Console\ConsoleRunner::printConfigMissingError();
+    Console\ConsoleHelper::printConfigMissingError();
     exit(1);
 }
 
 // Run application
-Console\ConsoleRunner::createApp(require $configFile)->run();
+Console\ConsoleHelper::createApp(require $configFile)->run();

@@ -7,7 +7,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class ConsoleRunner
+class ConsoleHelper
 {
     public static function createApp(array $config)
     {
