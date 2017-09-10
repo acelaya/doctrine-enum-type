@@ -143,7 +143,7 @@ With this method, elements with a string key will be registered with that name, 
 
 The previous approach is very easy, but has one caveat. Types cannot be lazy loaded, as happens with other doctrine types. They all need to be instantiated on every request.
 
-When you don't have many enum types that's acceptable, but it could be problematic if your application grows and you start using them in many entities.
+When you don't have many enum types, that's acceptable, but it could be problematic if your application grows and you start using them in many entities.
 
 That's why this package provides a service, the `Acelaya\Doctrine\Registrator\EnumTypeRegistrator`, which is responsible of creating and dumping type classes, and registering each enum type using those classes. This way, there's a different type for every enum, and they don't need to be instantiated to do the magic.
 
