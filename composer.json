@@ -29,7 +29,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Acelaya\\Test\\Doctrine\\": "tests"
+            "Acelaya\\Test\\Doctrine\\": "test"
         }
     }
 }
