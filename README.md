@@ -16,9 +16,7 @@ Install this package using [composer](https://getcomposer.org/) by running `comp
 
 ### Usage
 
-This package provides a `Acelaya\Doctrine\Type\PhpEnumType` class that extends `Doctrine\DBAL\Types\Type`. You can use it to easily map type names to concrete Enums.
-
-The `PhpEnumType` class will be used as the doctrine type for every property that is an enumeration.
+This package provides two ways to register types that are mapped to enums. One of them is more verbose but more efficient. The other one is faster to implement but instantiates all types on every request.
 
 Let's imagine we have this two enums.
 
@@ -30,10 +28,10 @@ use MyCLabs\Enum\Enum;
 
 class Action extends Enum
 {
-    const CREATE    = 'create';
-    const READ      = 'read';
-    const UPDATE    = 'update';
-    const DELETE    = 'delete';
+    const CREATE = 'create';
+    const READ = 'read';
+    const UPDATE = 'update';
+    const DELETE = 'delete';
 }
 ```
 
@@ -45,8 +43,9 @@ use MyCLabs\Enum\Enum;
 
 class Gender extends Enum
 {
-    const MALE      = 'male';
-    const FEMALE    = 'female';
+    const MALE = 'male';
+    const FEMALE = 'female';
+    const OTHER = 'other';
 }
 ```
 
@@ -97,7 +96,11 @@ class User
 }
 ```
 
-The column type of the action property is the FQCN of the `Action` enum, and the gender column type is **php_enum_gender**. To get this working, you have to register the concrete column types, using the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumType` static method.
+The column type of the action property is the FQCN of the `Action` enum, and the gender column type is **php_enum_gender**. To get this working, you have two options.
+
+#### Register enums using PhpEnumType
+
+Register the concrete column types, using the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumType` static method.
 
 ```php
 <?php
@@ -116,7 +119,7 @@ PhpEnumType::registerEnumType(Action::class);
 PhpEnumType::registerEnumType('php_enum_gender', Gender::class);
 ```
 
-That will internally register a customized doctrine type. As you can see, it its possible to just pass the FQCN of the enum, making the type use it as the name, but you can also provide a different name.
+That will internally register a customized doctrine type. As you can see, it's possible to just pass the FQCN of the enum, making the type use it as the name, but you can also provide a different name.
 
 Alternatively you can use the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumTypes`, which expects an array of enums to register.
 
@@ -138,11 +141,65 @@ With this method, elements with a string key will be registered with that name, 
 
 Do the same for each concrete enum you want to register.
 
-If you need more information on custom doctrine column types, read this http://doctrine-orm.readthedocs.io/en/latest/cookbook/custom-mapping-types.html
+#### Register enums using the EnumTypeRegistrator
+
+The previous approach is very easy, but has one caveat. Types cannot be lazy loaded, as happens with other doctrine types. They all need to be instantiated on every request.
+
+When you don't have many enum types that's acceptable, but it could be problematic if your application grows and you start using them in many entities.
+
+That's why this package provides a service, the `Acelaya\Doctrine\Registrator\EnumTypeRegistrator`, which is responsible of creating and dumping type classes, and registering each enum type using those classes. This way, there's a different type for every enum, and they don't need to be instantiated to do the magic.
+
+```php
+<?php
+// in bootstrapping code
+
+// ...
+
+use Acelaya\Doctrine\Registrator\EnumTypeRegistrator;
+use Acelaya\Enum\Action;
+use Acelaya\Enum\Gender;
+
+// ...
+
+$registrator = new EnumTypeRegistrator([
+    'type_files_dir' => 'data/my_types', // Defaults to sys_get_temp_dir()
+]);
+// Similar to the PhpEnumType, this service has the methods registerEnumType and registerEnumTypes
+$registrator->registerEnumTypes([
+    Action::class,
+    'php_enum_gender' => Gender::class,
+]);
+```
+
+This will create two type classes in `data/my_types` dir, register an autoloader, and let doctrine lazy load them when the type is needed.
+
+However, this has another performance issue. We are dumping one file per enum on every request.
+
+In order to prevent that, you can disable the file generation in the `EnumTypeRegistrator` by passing the **auto_generate_type_files** option with value `false`.
+
+```php
+<?php
+use Acelaya\Doctrine\Registrator\EnumTypeRegistrator;
+
+$registrator = new EnumTypeRegistrator([
+    'type_files_dir' => 'data/my_types', // Defaults to sys_get_temp_dir()
+    'auto_generate_type_files' => false, // Defaults to true
+]);
+```
+
+And then, use the included console tool to generate all types just once, and reduce the overload at runtime.
+
+```bash
+vendor/bin/det det:dump-type-files
+```
+
+This command will require you to create a `det-config.php` file, which provides the list of enums to map, as well as the `EnumTypeRegistrator` configuration.
+
+If you have worked with the doctrine console tool, this probably feels familiar. Indeed I got inspiration from doctrine's implementation to build this one.
 
 ### Customize SQL declaration
 
-By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as as a VARCHAR(255) like this:
+By default, all types define enums as a VARCHAR(255) like this:
 
 ```php
 public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
@@ -151,7 +208,11 @@ public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $pla
 }
 ```
 
-If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
+If you want something more specific, like a MySQL enum, you have two options, depending on which one of the two previous approach you decided to use.
+
+#### While using PhpEnumType
+
+Just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this
 
 ```php
 namespace App\Type;
@@ -172,7 +233,7 @@ class MyPhpEnumType extends PhpEnumType
 }
 ```
 
-Then remember to register the enums with your own class.
+Then remember to register the enums with your own type class.
 
 ```php
 <?php
@@ -187,3 +248,43 @@ MyPhpEnumType::registerEnumTypes([
     'php_enum_gender' => Gender::class,
 ]);
 ```
+
+#### While using the EnumTypeRegistrator
+
+Define your type that extends `AbstractPhpEnumType` and overwrite the `getSQLDeclaration()`.
+
+```php
+namespace App\Type;
+
+use Acelaya\Doctrine\Type\AbstractPhpEnumType;
+
+class MyPhpEnumType extends AbstractPhpEnumType
+{
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    {
+        $values = call_user_func([$this->enumType, 'toArray']);
+        return sprintf(
+            'ENUM("%s") COMMENT "%s"',
+            implode('", "', $values),
+            $this->getName()
+        );
+    }
+}
+```
+
+Then configure the `EnumTypeRegistrator` to use your own type.
+
+```php
+<?php
+use Acelaya\Doctrine\Registrator\EnumTypeRegistrator;
+use App\Type\MyPhpEnumType;
+
+$registrator = new EnumTypeRegistrator([
+    'base_type_class' => MyPhpEnumType::class, // This defaults to AbstractPhpEnumType
+    'type_files_dir' => 'data/my_types', // Defaults to sys_get_temp_dir()
+]);
+```
+
+And that's it.
+
+If you need more information on custom doctrine column types, read this http://docs.doctrine-project.org/projects/doctrine-orm/en/latest/cookbook/custom-mapping-types.html
