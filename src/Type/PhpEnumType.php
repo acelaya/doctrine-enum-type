@@ -68,7 +68,7 @@ class PhpEnumType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return (string) $value;
+        return ($value === null) ? null : (string) $value;
     }
 
     /**
