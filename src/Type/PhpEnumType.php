@@ -18,6 +18,7 @@ class PhpEnumType extends AbstractPhpEnumType
      * @param null $enumClass
      * @throws InvalidArgumentException
      * @throws DBALException
+     * @deprecated Use the EnumTypeRegistrator in order to register enums instead
      */
     public static function registerEnumType($typeNameOrEnumClass, $enumClass = null)
     {
@@ -44,6 +45,7 @@ class PhpEnumType extends AbstractPhpEnumType
      * @param array $types
      * @throws InvalidArgumentException
      * @throws DBALException
+     * @deprecated Use the EnumTypeRegistrator in order to register enums instead
      */
     public static function registerEnumTypes(array $types)
     {
