@@ -1,0 +1,32 @@
+#!/usr/bin/env php
+<?php
+namespace Acelaya\Doctrine;
+
+// Include autoloader
+$autoloadFiles = [
+    __DIR__ . '/../../../autoload.php',
+    __DIR__ . '/../vendor/autoload.php',
+];
+foreach ($autoloadFiles as $autoloadFile) {
+    if (file_exists($autoloadFile)) {
+        require_once $autoloadFile;
+        break;
+    }
+}
+
+// Read config file
+$directories = [getcwd() . DIRECTORY_SEPARATOR . 'config', getcwd()];
+$configFile = null;
+foreach ($directories as $directory) {
+    $configFile = $directory . DIRECTORY_SEPARATOR . 'det-config.php';
+    if (file_exists($configFile)) {
+        break;
+    }
+}
+if (! file_exists($configFile)) {
+    Console\ConsoleRunner::printConfigMissingError();
+    exit(1);
+}
+
+// Run application
+Console\ConsoleRunner::run(require $configFile);
