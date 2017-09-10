@@ -139,8 +139,6 @@ PhpEnumType::registerEnumTypes([
 
 With this method, elements with a string key will be registered with that name, and elements with integer key will use the value as the type name.
 
-Do the same for each concrete enum you want to register.
-
 #### Register enums using the EnumTypeRegistrator
 
 The previous approach is very easy, but has one caveat. Types cannot be lazy loaded, as happens with other doctrine types. They all need to be instantiated on every request.
