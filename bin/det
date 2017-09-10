@@ -29,4 +29,4 @@ if (! file_exists($configFile)) {
 }
 
 // Run application
-Console\ConsoleRunner::run(require $configFile);
+Console\ConsoleRunner::createApp(require $configFile)->run();

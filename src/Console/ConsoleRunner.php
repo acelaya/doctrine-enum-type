@@ -5,14 +5,10 @@ use Acelaya\Doctrine\Exception\InvalidArgumentException;
 use Acelaya\Doctrine\Registrator\EnumTypeRegistrator;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ConsoleRunner
 {
-    public static function run(array $config)
-    {
-        self::createApp($config)->run();
-    }
-
     public static function createApp(array $config)
     {
         $app = new Application('acelaya/doctrine-enum-type', 'v2.1.0');
@@ -33,9 +29,9 @@ class ConsoleRunner
         return $app;
     }
 
-    public static function printConfigMissingError()
+    public static function printConfigMissingError(OutputInterface $output = null)
     {
-        $output = new ConsoleOutput();
+        $output = $output ?: new ConsoleOutput();
         $output->writeln('<error>det-config.php not found</error>');
         $output->writeln(
             'You have to create a file named <options=bold>det-config.php</> in the project root or the config'
