@@ -206,7 +206,7 @@ public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $pla
 }
 ```
 
-If you want something more specific, like a MySQL enum, you have two options, depending on which one of the two previous approach you decided to use.
+If you want something more specific, like a MySQL enum, you have two options, depending on which one of the previous two approaches you decided to use.
 
 #### While using PhpEnumType
 
