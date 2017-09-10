@@ -5,12 +5,6 @@ use Acelaya\Doctrine\Exception\InvalidArgumentException;
 use Doctrine\DBAL\DBALException;
 use MyCLabs\Enum\Enum;
 
-/**
- * This class instantiates all types as soon as registered, and will be removed in v3.
- * Use the EnumTypeRegistrator service instead
- *
- * @deprecated
- */
 class PhpEnumType extends AbstractPhpEnumType
 {
     /**
@@ -18,7 +12,6 @@ class PhpEnumType extends AbstractPhpEnumType
      * @param null $enumClass
      * @throws InvalidArgumentException
      * @throws DBALException
-     * @deprecated Use the EnumTypeRegistrator in order to register enums instead
      */
     public static function registerEnumType($typeNameOrEnumClass, $enumClass = null)
     {
@@ -45,7 +38,6 @@ class PhpEnumType extends AbstractPhpEnumType
      * @param array $types
      * @throws InvalidArgumentException
      * @throws DBALException
-     * @deprecated Use the EnumTypeRegistrator in order to register enums instead
      */
     public static function registerEnumTypes(array $types)
     {
