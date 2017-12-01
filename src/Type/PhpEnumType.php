@@ -16,7 +16,7 @@ class PhpEnumType extends Type
     /**
      * @var string
      */
-    private $enumClass = Enum::class;
+    protected $enumClass = Enum::class;
 
     /**
      * Gets the name of this type.

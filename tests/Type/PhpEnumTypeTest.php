@@ -179,4 +179,19 @@ class PhpEnumTypeTest extends TestCase
         $this->assertInstanceOf(MyType::class, $type);
         $this->assertEquals('FOO BAR', $type->getSQLDeclaration([], $this->platform->reveal()));
     }
+
+    /**
+     * @test
+     */
+    public function usingChildCustomEnumTypeRegisteredValueIsCorrect()
+    {
+        MyCustomEnumType::registerEnumType(Action::class);
+        $type = MyCustomEnumType::getType(Action::class);
+
+        $this->assertInstanceOf(MyCustomEnumType::class, $type);
+        $this->assertEquals(
+            'ENUM("create", "read", "update", "delete") COMMENT "Acelaya\Test\Doctrine\Enum\Action"',
+            $type->getSQLDeclaration([], $this->platform->reveal())
+        );
+    }
 }

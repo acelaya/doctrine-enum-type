@@ -162,7 +162,7 @@ class MyPhpEnumType extends PhpEnumType
 {
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $values = call_user_func([$this->enumType, 'toArray']);
+        $values = call_user_func([$this->enumClass, 'toArray']);
         return sprintf(
             'ENUM("%s") COMMENT "%s"',
             implode('", "', $values),
