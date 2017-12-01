@@ -14,7 +14,7 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]] || [[ $TRAVIS_PHP_VERSION = 7.2 ]]; then composer global require --dev phpstan/phpstan; fi
+  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]] || [[ $TRAVIS_PHP_VERSION = 7.2 ]]; then composer global require --dev phpstan/phpstan:0.9.*; fi
 
 script:
   - mkdir build

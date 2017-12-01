@@ -72,8 +72,8 @@ class PhpEnumType extends Type
     }
 
     /**
-     * @param $typeNameOrEnumClass
-     * @param null $enumClass
+     * @param string $typeNameOrEnumClass
+     * @param string|null $enumClass
      * @throws InvalidArgumentException
      * @throws DBALException
      */
