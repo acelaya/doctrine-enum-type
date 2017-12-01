@@ -14,12 +14,12 @@ php:
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]]; then composer global require --dev phpstan/phpstan; fi
+  - if [[ $TRAVIS_PHP_VERSION >= 7.1 ]]; then composer global require --dev phpstan/phpstan; fi
 
 script:
   - mkdir build
   - ./vendor/bin/phpcs --standard=PSR2 ./src ./tests -p
-  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]]; then ~/.composer/vendor/bin/phpstan analyse src/ --level=5; fi
+  - if [[ $TRAVIS_PHP_VERSION >= 7.1 ]]; then ~/.composer/vendor/bin/phpstan analyse src/ --level=5; fi
   - ./vendor/bin/phpunit -c tests/phpunit.xml --coverage-clover build/clover.xml
 
 after_script:

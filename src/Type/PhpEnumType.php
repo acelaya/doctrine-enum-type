@@ -42,7 +42,7 @@ class PhpEnumType extends Type
     }
 
     /**
-     * @param string $value
+     * @param string|null $value
      * @param AbstractPlatform $platform
      * @return mixed
      * @throws InvalidArgumentException
