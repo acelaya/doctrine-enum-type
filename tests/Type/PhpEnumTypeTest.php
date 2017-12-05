@@ -194,4 +194,15 @@ class PhpEnumTypeTest extends TestCase
             $type->getSQLDeclaration([], $this->platform->reveal())
         );
     }
+
+    /**
+     * @test
+     */
+    public function SQLCommentHintIsAlwaysRequired()
+    {
+        PhpEnumType::registerEnumType(Gender::class);
+        $type = Type::getType(Gender::class);
+
+        $this->assertTrue($type->requiresSQLCommentHint($this->platform->reveal()));
+    }
 }
