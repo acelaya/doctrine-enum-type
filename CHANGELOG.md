@@ -1,5 +1,11 @@
 ## CHANGELOG
 
+### 2.0.3
+
+**Bugs:**
+
+* [14: Require SQL comment hint](https://github.com/acelaya/doctrine-enum-type/issues/14)
+
 ### 2.0.2
 
 **Enhancements:**
