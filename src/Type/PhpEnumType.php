@@ -110,4 +110,13 @@ class PhpEnumType extends Type
             static::registerEnumType($typeName, $enumClass);
         }
     }
+
+    /**
+     * @param AbstractPlatform $platform
+     * @return boolean
+     */
+    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    {
+        return true;
+    }
 }
