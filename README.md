@@ -30,10 +30,10 @@ use MyCLabs\Enum\Enum;
 
 class Action extends Enum
 {
-    const CREATE    = 'create';
-    const READ      = 'read';
-    const UPDATE    = 'update';
-    const DELETE    = 'delete';
+    public const CREATE    = 'create';
+    public const READ      = 'read';
+    public const UPDATE    = 'update';
+    public const DELETE    = 'delete';
 }
 ```
 
@@ -45,8 +45,8 @@ use MyCLabs\Enum\Enum;
 
 class Gender extends Enum
 {
-    const MALE      = 'male';
-    const FEMALE    = 'female';
+    public const MALE      = 'male';
+    public const FEMALE    = 'female';
 }
 ```
 
@@ -160,12 +160,12 @@ use Acelaya\Doctrine\Type\PhpEnumType;
 
 class MyPhpEnumType extends PhpEnumType
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        $values = call_user_func([$this->enumClass, 'toArray']);
+        $values = \call_user_func([$this->enumClass, 'toArray']);
         return sprintf(
             'ENUM("%s") COMMENT "%s"',
-            implode('", "', $values),
+            \implode('", "', $values),
             $this->getName()
         );
     }
