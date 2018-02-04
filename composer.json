@@ -44,6 +44,7 @@
             "@test"
         ],
         "cs": "phpcs",
+        "cs-fix": "phpcbf",
         "test": "phpunit -c tests/phpunit.xml --coverage-clover build/clover.xml",
         "stan": "phpstan analyse src/ --level=5"
     }

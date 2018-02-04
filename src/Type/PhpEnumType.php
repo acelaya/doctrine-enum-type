@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Doctrine\Type;
 
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
