@@ -24,6 +24,8 @@ Let's imagine we have this two enums.
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Enum;
 
 use MyCLabs\Enum\Enum;
@@ -39,6 +41,8 @@ class Action extends Enum
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Enum;
 
 use MyCLabs\Enum\Enum;
@@ -54,6 +58,8 @@ And this entity, with a column of each entity type.
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Entity;
 
 use Acelaya\Enum\Action;
@@ -101,6 +107,8 @@ The column type of the action property is the FQCN of the `Action` enum, and the
 
 ```php
 <?php
+declare(strict_types=1);
+
 // in bootstrapping code
 
 // ...
@@ -122,6 +130,8 @@ Alternatively you can use the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumTy
 
 ```php
 <?php
+declare(strict_types=1);
+
 // ...
 
 use Acelaya\Doctrine\Type\PhpEnumType;
@@ -154,6 +164,8 @@ public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $pla
 If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
 
 ```php
+declare(strict_types=1);
+
 namespace App\Type;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
@@ -176,6 +188,8 @@ Then remember to register the enums with your own class.
 
 ```php
 <?php
+declare(strict_types=1);
+
 // ...
 
 use Acelaya\Enum\Action;
