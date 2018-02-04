@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Test\Doctrine\Enum;
 
 use MyCLabs\Enum\Enum;
@@ -15,8 +17,8 @@ use MyCLabs\Enum\Enum;
  */
 class Action extends Enum
 {
-    const CREATE = 'create';
-    const READ = 'read';
-    const UPDATE = 'update';
-    const DELETE = 'delete';
+    public const CREATE = 'create';
+    public const READ = 'read';
+    public const UPDATE = 'update';
+    public const DELETE = 'delete';
 }

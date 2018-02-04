@@ -24,29 +24,33 @@ Let's imagine we have this two enums.
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Enum;
 
 use MyCLabs\Enum\Enum;
 
 class Action extends Enum
 {
-    const CREATE    = 'create';
-    const READ      = 'read';
-    const UPDATE    = 'update';
-    const DELETE    = 'delete';
+    public const CREATE    = 'create';
+    public const READ      = 'read';
+    public const UPDATE    = 'update';
+    public const DELETE    = 'delete';
 }
 ```
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Enum;
 
 use MyCLabs\Enum\Enum;
 
 class Gender extends Enum
 {
-    const MALE      = 'male';
-    const FEMALE    = 'female';
+    public const MALE      = 'male';
+    public const FEMALE    = 'female';
 }
 ```
 
@@ -54,6 +58,8 @@ And this entity, with a column of each entity type.
 
 ```php
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Entity;
 
 use Acelaya\Enum\Action;
@@ -101,6 +107,8 @@ The column type of the action property is the FQCN of the `Action` enum, and the
 
 ```php
 <?php
+declare(strict_types=1);
+
 // in bootstrapping code
 
 // ...
@@ -122,6 +130,8 @@ Alternatively you can use the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumTy
 
 ```php
 <?php
+declare(strict_types=1);
+
 // ...
 
 use Acelaya\Doctrine\Type\PhpEnumType;
@@ -154,18 +164,20 @@ public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $pla
 If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
 
 ```php
+declare(strict_types=1);
+
 namespace App\Type;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
 
 class MyPhpEnumType extends PhpEnumType
 {
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        $values = call_user_func([$this->enumClass, 'toArray']);
+        $values = \call_user_func([$this->enumClass, 'toArray']);
         return sprintf(
             'ENUM("%s") COMMENT "%s"',
-            implode('", "', $values),
+            \implode('", "', $values),
             $this->getName()
         );
     }
@@ -176,6 +188,8 @@ Then remember to register the enums with your own class.
 
 ```php
 <?php
+declare(strict_types=1);
+
 // ...
 
 use Acelaya\Enum\Action;

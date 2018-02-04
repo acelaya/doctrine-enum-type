@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Doctrine\Type;
 
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
@@ -53,13 +55,13 @@ class PhpEnumType extends Type
             return null;
         }
 
-        $isValid = call_user_func([$this->enumClass, 'isValid'], $value);
+        $isValid = \call_user_func([$this->enumClass, 'isValid'], $value);
         if (! $isValid) {
-            throw new InvalidArgumentException(sprintf(
+            throw new InvalidArgumentException(\sprintf(
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 $value,
                 $this->enumClass,
-                implode('", "', call_user_func([$this->enumClass, 'toArray']))
+                \implode('", "', \call_user_func([$this->enumClass, 'toArray']))
             ));
         }
 
@@ -82,8 +84,8 @@ class PhpEnumType extends Type
         $typeName = $typeNameOrEnumClass;
         $enumClass = $enumClass ?: $typeNameOrEnumClass;
 
-        if (! is_subclass_of($enumClass, Enum::class)) {
-            throw new InvalidArgumentException(sprintf(
+        if (! \is_subclass_of($enumClass, Enum::class)) {
+            throw new InvalidArgumentException(\sprintf(
                 'Provided enum class "%s" is not valid. Enums must extend "%s"',
                 $enumClass,
                 Enum::class
@@ -106,7 +108,7 @@ class PhpEnumType extends Type
     public static function registerEnumTypes(array $types)
     {
         foreach ($types as $typeName => $enumClass) {
-            $typeName = is_string($typeName) ? $typeName : $enumClass;
+            $typeName = \is_string($typeName) ? $typeName : $enumClass;
             static::registerEnumType($typeName, $enumClass);
         }
     }

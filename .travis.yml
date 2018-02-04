@@ -2,25 +2,19 @@ language: php
 
 branches:
   only:
-    - master
-    - develop
+    - /.*/
 
 php:
-  - 5.6
-  - 7
   - 7.1
   - 7.2
 
 before_script:
   - composer self-update
   - composer install --no-interaction
-  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]] || [[ $TRAVIS_PHP_VERSION = 7.2 ]]; then composer global require --dev phpstan/phpstan:0.9.*; fi
 
 script:
   - mkdir build
-  - ./vendor/bin/phpcs --standard=PSR2 ./src ./tests -p
-  - if [[ $TRAVIS_PHP_VERSION = 7.1 ]] || [[ $TRAVIS_PHP_VERSION = 7.2 ]]; then ~/.composer/vendor/bin/phpstan analyse src/ --level=5; fi
-  - ./vendor/bin/phpunit -c tests/phpunit.xml --coverage-clover build/clover.xml
+  - composer ci
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar

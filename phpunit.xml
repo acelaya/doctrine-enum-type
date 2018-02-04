@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="../vendor/autoload.php"
+<phpunit bootstrap="./vendor/autoload.php"
          colors="true">
 
     <testsuites>
         <testsuite name="EnumType tests">
-            <directory>./</directory>
+            <directory>./test</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>../src</directory>
+            <directory>src</directory>
         </whitelist>
     </filter>
 </phpunit>

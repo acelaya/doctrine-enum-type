@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 namespace Acelaya\Test\Doctrine\Type;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
@@ -11,11 +13,11 @@ class MyCustomEnumType extends PhpEnumType
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $values = call_user_func([$this->enumClass, 'toArray']);
+        $values = \call_user_func([$this->enumClass, 'toArray']);
 
-        return sprintf(
+        return \sprintf(
             'ENUM("%s") COMMENT "%s"',
-            implode('", "', $values),
+            \implode('", "', $values),
             $this->getName()
         );
     }
