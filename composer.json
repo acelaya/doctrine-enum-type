@@ -46,6 +46,6 @@
         "cs": "phpcs",
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always --coverage-clover build/clover.xml",
-        "stan": "phpstan analyse src/ --level=5"
+        "stan": "phpstan analyse src/ --level=6"
     }
 }
