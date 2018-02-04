@@ -15,6 +15,6 @@ use MyCLabs\Enum\Enum;
  */
 class Gender extends Enum
 {
-    const MALE = 'male';
-    const FEMALE = 'female';
+    public const MALE = 'male';
+    public const FEMALE = 'female';
 }

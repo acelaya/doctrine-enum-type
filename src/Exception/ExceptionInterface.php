@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace Acelaya\Doctrine\Exception;
 
-interface ExceptionInterface
+interface ExceptionInterface extends \Throwable
 {
-
 }

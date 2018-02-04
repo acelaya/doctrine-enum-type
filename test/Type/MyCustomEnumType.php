@@ -13,11 +13,11 @@ class MyCustomEnumType extends PhpEnumType
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        $values = call_user_func([$this->enumClass, 'toArray']);
+        $values = \call_user_func([$this->enumClass, 'toArray']);
 
-        return sprintf(
+        return \sprintf(
             'ENUM("%s") COMMENT "%s"',
-            implode('", "', $values),
+            \implode('", "', $values),
             $this->getName()
         );
     }
