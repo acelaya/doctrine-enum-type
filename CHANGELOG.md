@@ -1,5 +1,12 @@
 ## CHANGELOG
 
+### 2.2.0
+
+**Enhancements:**
+
+* [18: Add infection to the ci pipeline](https://github.com/acelaya/doctrine-enum-type/issues/18)
+* [9: Enums with a value other than string cannot be loaded from the database](https://github.com/acelaya/doctrine-enum-type/issues/9)
+
 ### 2.1.0
 
 **Enhancements:**
