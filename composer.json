@@ -19,6 +19,7 @@
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
+        "infection/infection": "^0.8.1",
         "phpstan/phpstan": "^0.9.2",
         "phpunit/phpunit": "^7.0",
         "slevomat/coding-standard": "^4.0",
@@ -38,14 +39,22 @@
         "sort-packages": true
     },
     "scripts": {
-        "ci": [
-            "@cs",
-            "@stan",
-            "@test"
+        "ac:ci": [
+            "@ac:cs",
+            "@ac:stan",
+            "@ac:test-ci",
+            "@ac:infect"
         ],
-        "cs": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always --coverage-clover build/clover.xml",
-        "stan": "phpstan analyse src/ --level=6"
+
+        "ac:cs": "phpcs --colors",
+        "ac:cs-fix": "phpcbf",
+        "ac:stan": "phpstan analyse src/ --level=6",
+
+        "ac:test": "phpunit --colors=always",
+        "ac:test-pretty": "phpunit --colors=always --coverage-html=build/html",
+        "ac:test-ci": "phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
+
+        "ac:infect": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --coverage=build",
+        "ac:infect-show": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --show-mutations"
     }
 }

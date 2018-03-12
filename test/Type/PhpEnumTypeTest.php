@@ -7,6 +7,8 @@ use Acelaya\Doctrine\Exception\InvalidArgumentException;
 use Acelaya\Doctrine\Type\PhpEnumType;
 use Acelaya\Test\Doctrine\Enum\Action;
 use Acelaya\Test\Doctrine\Enum\Gender;
+use Acelaya\Test\Doctrine\Enum\WithCastingMethods;
+use Acelaya\Test\Doctrine\Enum\WithIntegerValues;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;
@@ -96,31 +98,47 @@ class PhpEnumTypeTest extends TestCase
     {
         $this->platform->getVarcharTypeDeclarationSQL(Argument::cetera())->willReturn('declaration');
 
-        PhpEnumType::registerEnumType(Gender::class);
-        $type = Type::getType(Gender::class);
+        $type = $this->getType(Gender::class);
 
         $this->assertEquals('declaration', $type->getSQLDeclaration([], $this->platform->reveal()));
     }
 
     /**
      * @test
+     * @dataProvider provideValues
+     * @param string $typeName
+     * @param $phpValue
+     * @param string $expectedValue
      */
-    public function convertToDatabaseValueParsesEnum()
+    public function convertToDatabaseValueParsesEnum(string $typeName, $phpValue, string $expectedValue)
     {
-        PhpEnumType::registerEnumType(Action::class);
-        $type = Type::getType(Action::class);
+        $type = $this->getType($typeName);
 
-        $value = Action::CREATE();
-        $this->assertEquals(Action::CREATE, $type->convertToDatabaseValue($value, $this->platform->reveal()));
+        $actualValue = $type->convertToDatabaseValue($phpValue, $this->platform->reveal());
 
-        $value = Action::READ();
-        $this->assertEquals(Action::READ, $type->convertToDatabaseValue($value, $this->platform->reveal()));
+        $this->assertEquals($expectedValue, $actualValue);
+    }
 
-        $value = Action::UPDATE();
-        $this->assertEquals(Action::UPDATE, $type->convertToDatabaseValue($value, $this->platform->reveal()));
+    public function provideValues(): array
+    {
+        return [
+            [Action::class, Action::CREATE(), Action::CREATE],
+            [Action::class, Action::READ(), Action::READ],
+            [Action::class, Action::UPDATE(), Action::UPDATE],
+            [Action::class, Action::DELETE(), Action::DELETE],
+            [Gender::class, Gender::FEMALE(), Gender::FEMALE],
+            [Gender::class, Gender::MALE(), Gender::MALE],
+        ];
+    }
 
-        $value = Action::DELETE();
-        $this->assertEquals(Action::DELETE, $type->convertToDatabaseValue($value, $this->platform->reveal()));
+    /**
+     * @test
+     */
+    public function convertToDatabaseValueReturnsNullWhenNullIsProvided()
+    {
+        $type = $this->getType(Action::class);
+
+        $this->assertNull($type->convertToDatabaseValue(null, $this->platform->reveal()));
     }
 
     /**
@@ -128,8 +146,7 @@ class PhpEnumTypeTest extends TestCase
      */
     public function convertToPHPValueWithValidValueReturnsParsedData()
     {
-        PhpEnumType::registerEnumType(Action::class);
-        $type = Type::getType(Action::class);
+        $type = $this->getType(Action::class);
 
         /** @var Action $value */
         $value = $type->convertToPHPValue(Action::CREATE, $this->platform->reveal());
@@ -146,8 +163,7 @@ class PhpEnumTypeTest extends TestCase
      */
     public function convertToPHPValueWithNullReturnsNull()
     {
-        PhpEnumType::registerEnumType(Action::class);
-        $type = Type::getType(Action::class);
+        $type = $this->getType(Action::class);
 
         $value = $type->convertToPHPValue(null, $this->platform->reveal());
         $this->assertNull($value);
@@ -158,8 +174,7 @@ class PhpEnumTypeTest extends TestCase
      */
     public function convertToPHPValueWithInvalidValueThrowsException()
     {
-        PhpEnumType::registerEnumType(Action::class);
-        $type = Type::getType(Action::class);
+        $type = $this->getType(Action::class);
 
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
@@ -173,13 +188,30 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function usingChildEnumTypeRegisteredValueIsCorrect()
+    public function convertToPHPValueWithCastingMethodProperlyCastsIt()
     {
-        MyType::registerEnumType(Action::class);
-        $type = Type::getType(Action::class);
+        $type = $this->getType(WithCastingMethods::class);
 
-        $this->assertInstanceOf(MyType::class, $type);
-        $this->assertEquals('FOO BAR', $type->getSQLDeclaration([], $this->platform->reveal()));
+        $value = $type->convertToPHPValue('foo VALUE', $this->platform->reveal());
+        $this->assertInstanceOf(WithCastingMethods::class, $value);
+        $this->assertEquals(WithCastingMethods::FOO, $value->getValue());
+
+        $intType = $this->getType(WithIntegerValues::class);
+
+        $value = $intType->convertToPHPValue('1', $this->platform->reveal());
+        $this->assertInstanceOf(WithIntegerValues::class, $value);
+        $this->assertEquals(1, $value->getValue());
+    }
+
+    /**
+     * @test
+     */
+    public function convertToDatabaseValueWithCastingMethodProperlyCastsIt()
+    {
+        $type = $this->getType(WithCastingMethods::class);
+
+        $value = $type->convertToDatabaseValue(WithCastingMethods::FOO(), $this->platform->reveal());
+        $this->assertEquals('FOO VALUE', $value);
     }
 
     /**
@@ -202,9 +234,14 @@ class PhpEnumTypeTest extends TestCase
      */
     public function SQLCommentHintIsAlwaysRequired()
     {
-        PhpEnumType::registerEnumType(Gender::class);
-        $type = Type::getType(Gender::class);
+        $type = $this->getType(Gender::class);
 
         $this->assertTrue($type->requiresSQLCommentHint($this->platform->reveal()));
+    }
+
+    private function getType(string $typeName): PhpEnumType
+    {
+        PhpEnumType::registerEnumType($typeName);
+        return Type::getType($typeName);
     }
 }
