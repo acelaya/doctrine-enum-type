@@ -55,6 +55,12 @@ class PhpEnumType extends Type
             return null;
         }
 
+        // If the enumeration provides a casting method, apply it
+        if (\method_exists($this->enumClass, 'castFromDatabase')) {
+            $value = \call_user_func([$this->enumClass, 'castFromDatabase'], $value);
+        }
+
+        // Check if the value is valid for this enumeration
         $isValid = \call_user_func([$this->enumClass, 'isValid'], $value);
         if (! $isValid) {
             throw new InvalidArgumentException(\sprintf(
@@ -70,7 +76,17 @@ class PhpEnumType extends Type
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return ($value === null) ? null : (string) $value;
+        if ($value === null) {
+            return null;
+        }
+
+        // If the enumeration provides a casting method, apply it
+        if (\method_exists($this->enumClass, 'castToDatabase')) {
+            $value = \call_user_func([$this->enumClass, 'castToDatabase'], $value);
+        }
+
+        // Otherwise, cast to string
+        return (string) $value;
     }
 
     /**
