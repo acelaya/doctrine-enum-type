@@ -18,7 +18,7 @@ class WithIntegerValues extends Enum
     public const ONE = 1;
     public const TWO = 2;
 
-    public static function castFromDatabase($value)
+    public static function castValueIn($value)
     {
         return (int) $value;
     }

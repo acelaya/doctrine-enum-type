@@ -18,12 +18,12 @@ class WithCastingMethods extends Enum
     public const FOO = 'foo_value';
     public const BAR = 'bar_value';
 
-    public static function castFromDatabase($value)
+    public static function castValueIn($value)
     {
         return \strtolower(str_replace(' ', '_', $value));
     }
 
-    public static function castToDatabase($value)
+    public static function castValueOut(self $value)
     {
         return \strtoupper(str_replace('_', ' ', (string) $value));
     }
