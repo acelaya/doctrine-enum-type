@@ -14,7 +14,7 @@ before_script:
 
 script:
   - mkdir build
-  - composer ci
+  - composer ac:ci
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar

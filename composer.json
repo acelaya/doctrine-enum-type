@@ -38,14 +38,15 @@
         "sort-packages": true
     },
     "scripts": {
-        "ci": [
-            "@cs",
-            "@stan",
-            "@test"
+        "ac:ci": [
+            "@ac:cs",
+            "@ac:stan",
+            "@ac:test"
         ],
-        "cs": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit --colors=always --coverage-clover build/clover.xml",
-        "stan": "phpstan analyse src/ --level=6"
+
+        "ac:cs": "phpcs",
+        "ac:cs-fix": "phpcbf",
+        "ac:test": "phpunit --colors=always --coverage-clover build/clover.xml",
+        "ac:stan": "phpstan analyse src/ --level=6"
     }
 }
