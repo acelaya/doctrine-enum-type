@@ -205,3 +205,91 @@ MyPhpEnumType::registerEnumTypes([
     'php_enum_gender' => Gender::class,
 ]);
 ```
+
+### Customize value casting
+
+The library assumes all the values of the enumeration are strings, but that might not always be the case.
+
+Since v2.2.0, the library provides a way to define hooks which customize how values are cast **from** the database and **to** the database, by using the `castValueIn` and `castValueOut` static methods in the enumeration.
+
+For example, let's imagine we have this enum:
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Acelaya\Enum;
+
+use MyCLabs\Enum\Enum;
+
+class Status extends Enum
+{
+    public const SUCCESS = 1;
+    public const ERROR = 2;
+}
+```
+
+Using the generic `PhpEnumType` would cause an error when casting the value from the database, since it will be deserialized as a string.
+
+In order to get it working, you have to add the `castValueIn` static method in the enum:
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Acelaya\Enum;
+
+use MyCLabs\Enum\Enum;
+
+class Status extends Enum
+{
+    public const SUCCESS = 1;
+    public const ERROR = 2;
+
+    public static function castValueIn($value)
+    {
+        return (int) $value;
+    }
+}
+```
+
+This method is automatically invoked before checking if the value is valid, and creating the enum instance.
+
+The same way, a `castValueOut` method can be defined in order to modify the value before getting it persisted into the database.
+
+```php
+<?php
+declare(strict_types=1);
+
+namespace Acelaya\Enum;
+
+use MyCLabs\Enum\Enum;
+
+class Gender extends Enum
+{
+    public const MALE = 'male';
+    public const FEMALE = 'female';
+
+    public static function castValueOut(self $value)
+    {
+        return \strtolower((string) $value);
+    }
+}
+```
+
+These methods can also be used to customize the values. For example, if you used to have values with underscores and want to replace them by dashes, you could define these methods in your enum, in order to keep backward compatibility.
+
+```php
+<?php
+
+// ...
+public static function castValueIn($value)
+{
+    return \str_replace('_', '-', $value);
+}
+
+public static function castValueOut(self $value)
+{
+    return \str_replace('-', '_', (string) $value);
+}
+```
