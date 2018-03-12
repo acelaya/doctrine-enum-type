@@ -1,18 +1,20 @@
 # Doctrine Enum Type
 
-[![Build Status](https://travis-ci.org/acelaya/doctrine-enum-type.svg?branch=master)](https://travis-ci.org/acelaya/doctrine-enum-type)
-[![Code Coverage](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat)](https://github.com/phpstan/phpstan)
-[![Latest Stable Version](https://poser.pugx.org/acelaya/doctrine-enum-type/v/stable.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
-[![Total Downloads](https://poser.pugx.org/acelaya/doctrine-enum-type/downloads.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
-[![License](https://poser.pugx.org/acelaya/doctrine-enum-type/license.png)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+[![Build Status](https://img.shields.io/travis/acelaya/doctrine-enum-type/master.svg?style=flat-square)](https://travis-ci.org/acelaya/doctrine-enum-type)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+[![Latest Stable Version](https://poser.pugx.org/acelaya/doctrine-enum-type/v/stable?format=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
+[![Total Downloads](https://poser.pugx.org/acelaya/doctrine-enum-type/downloads?format=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+[![License](https://poser.pugx.org/acelaya/doctrine-enum-type/license?format=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/master/LICENSE)
 
 This package provides a base implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
 
 ### Installation
 
-Install this package using [composer](https://getcomposer.org/) by running `composer require acelaya/doctrine-enum-type`.
+The recommended installation method is by using [composer](https://getcomposer.org/)
+
+    composer require acelaya/doctrine-enum-type.
 
 ### Usage
 
@@ -32,10 +34,10 @@ use MyCLabs\Enum\Enum;
 
 class Action extends Enum
 {
-    public const CREATE    = 'create';
-    public const READ      = 'read';
-    public const UPDATE    = 'update';
-    public const DELETE    = 'delete';
+    public const CREATE = 'create';
+    public const READ = 'read';
+    public const UPDATE = 'update';
+    public const DELETE = 'delete';
 }
 ```
 
@@ -49,8 +51,8 @@ use MyCLabs\Enum\Enum;
 
 class Gender extends Enum
 {
-    public const MALE      = 'male';
-    public const FEMALE    = 'female';
+    public const MALE = 'male';
+    public const FEMALE = 'female';
 }
 ```
 
@@ -164,18 +166,20 @@ public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $pla
 If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
 
 ```php
+<?php
 declare(strict_types=1);
 
 namespace App\Type;
 
 use Acelaya\Doctrine\Type\PhpEnumType;
+use Doctrine\DBAL\Platforms\AbstractPlatform;
 
 class MyPhpEnumType extends PhpEnumType
 {
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $values = \call_user_func([$this->enumClass, 'toArray']);
-        return sprintf(
+        return \sprintf(
             'ENUM("%s") COMMENT "%s"',
             \implode('", "', $values),
             $this->getName()
