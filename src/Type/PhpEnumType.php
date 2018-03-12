@@ -82,7 +82,7 @@ class PhpEnumType extends Type
 
         // If the enumeration provides a casting method, apply it
         if (\method_exists($this->enumClass, 'castToDatabase')) {
-            $value = \call_user_func([$this->enumClass, 'castToDatabase'], $value);
+            return \call_user_func([$this->enumClass, 'castToDatabase'], $value);
         }
 
         // Otherwise, cast to string
