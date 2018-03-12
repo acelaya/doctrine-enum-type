@@ -50,7 +50,7 @@
         "ac:cs-fix": "phpcbf",
         "ac:stan": "phpstan analyse src/ --level=6",
 
-        "ac:test": "phpunit",
+        "ac:test": "phpunit --colors=always",
         "ac:test-pretty": "phpunit --colors=always --coverage-html=build/html",
         "ac:test-ci": "phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
 
