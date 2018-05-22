@@ -14,7 +14,7 @@ This package provides a base implementation to define doctrine entity column typ
 
 The recommended installation method is by using [composer](https://getcomposer.org/)
 
-    composer require acelaya/doctrine-enum-type.
+    composer require acelaya/doctrine-enum-type
 
 ### Usage
 
