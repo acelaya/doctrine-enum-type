@@ -57,17 +57,23 @@ class PhpEnumType extends Type
 
         // If the enumeration provides a casting method, apply it
         if (\method_exists($this->enumClass, 'castValueIn')) {
-            $value = \call_user_func([$this->enumClass, 'castValueIn'], $value);
+            /** @var callable $castValueIn */
+            $castValueIn = [$this->enumClass, 'castValueIn'];
+            $value = $castValueIn($value);
         }
 
         // Check if the value is valid for this enumeration
-        $isValid = \call_user_func([$this->enumClass, 'isValid'], $value);
+        /** @var callable $isValidCallable */
+        $isValidCallable = [$this->enumClass, 'isValid'];
+        $isValid = $isValidCallable($value);
         if (! $isValid) {
+            /** @var callable $toArray */
+            $toArray = [$this->enumClass, 'toArray'];
             throw new InvalidArgumentException(\sprintf(
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 $value,
                 $this->enumClass,
-                \implode('", "', \call_user_func([$this->enumClass, 'toArray']))
+                \implode('", "', $toArray())
             ));
         }
 
@@ -82,7 +88,9 @@ class PhpEnumType extends Type
 
         // If the enumeration provides a casting method, apply it
         if (\method_exists($this->enumClass, 'castValueOut')) {
-            return \call_user_func([$this->enumClass, 'castValueOut'], $value);
+            /** @var callable $castValueOut */
+            $castValueOut = [$this->enumClass, 'castValueOut'];
+            return $castValueOut($value);
         }
 
         // Otherwise, cast to string

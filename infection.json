@@ -12,5 +12,9 @@
     },
     "phpUnit": {
         "configDir": "."
+    },
+    "mutators": {
+        "@default": true,
+        "IdenticalEqual": false
     }
 }
