@@ -1,31 +1,93 @@
 ## CHANGELOG
 
-### 2.2.0
 
-**Enhancements:**
+## 2.2.0 - 2018-03-12
 
-* [18: Add infection to the ci pipeline](https://github.com/acelaya/doctrine-enum-type/issues/18)
-* [9: Enums with a value other than string cannot be loaded from the database](https://github.com/acelaya/doctrine-enum-type/issues/9)
+#### Added
 
-### 2.1.0
+* [#9](https://github.com/acelaya/doctrine-enum-type/issues/9) Allowed enums with values other than strings to be loaded from the database
 
-**Enhancements:**
+#### Changed
 
-* [16: Drop support for PHP 5.6 and 7.0](https://github.com/acelaya/doctrine-enum-type/issues/16)
-* [17: Improve required coding standards](https://github.com/acelaya/doctrine-enum-type/issues/17)
+* [#18](https://github.com/acelaya/doctrine-enum-type/issues/18) Added infection to the ci pipeline
 
-### 2.0.3
+#### Deprecated
 
-**Bugs:**
+* *Nothing*
 
-* [14: Require SQL comment hint](https://github.com/acelaya/doctrine-enum-type/issues/14)
+#### Removed
 
-### 2.0.2
+* *Nothing*
 
-**Enhancements:**
+#### Fixed
 
-* [11: Add gitattributes file to exclude content from distribution](https://github.com/acelaya/doctrine-enum-type/issues/11)
+* *Nothing*
 
-**Bugs:**
 
-* [13: Fix create a new custom type](https://github.com/acelaya/doctrine-enum-type/issues/13)
+## 2.1.0 - 2018-02-04
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* [#17](https://github.com/acelaya/doctrine-enum-type/issues/17) Improved required coding standards
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#16](https://github.com/acelaya/doctrine-enum-type/issues/16) Dropped support for PHP 5.6 and 7.0
+
+#### Fixed
+
+* *Nothing*
+
+
+## 2.0.3 - 2017-12-06
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* [#14](https://github.com/acelaya/doctrine-enum-type/issues/14) Required SQL comment hint
+
+
+## 2.0.2 - 2017-12-06
+
+#### Added
+
+* [#11](https://github.com/acelaya/doctrine-enum-type/issues/11) Add gitattributes file to exclude content from distribution
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* [#13](https://github.com/acelaya/doctrine-enum-type/issues/13) Fixed create a new custom type
