@@ -1,12 +1,13 @@
 # Doctrine Enum Type
 
 [![Build Status](https://img.shields.io/travis/acelaya/doctrine-enum-type/master.svg?style=flat-square)](https://travis-ci.org/acelaya/doctrine-enum-type)
-[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
-[![Latest Stable Version](https://poser.pugx.org/acelaya/doctrine-enum-type/v/stable?format=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
-[![Total Downloads](https://poser.pugx.org/acelaya/doctrine-enum-type/downloads?format=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
-[![License](https://poser.pugx.org/acelaya/doctrine-enum-type/license?format=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/master/LICENSE)
+[![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
+[![Infection](https://img.shields.io/badge/Infection-enabled-blue.svg?style=flat-square)](https://github.com/infection/infection)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-blue.svg?style=flat-square)](https://github.com/phpstan/phpstan)
+[![Latest Stable Version](https://img.shields.io/github/release/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
+[![Total Downloads](https://img.shields.io/packagist/dt/acelaya/doctrine-enum-type.svg?style=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
+[![License](https://img.shields.io/github/license/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/master/LICENSE)
 
 This package provides a base implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
 
