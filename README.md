@@ -127,9 +127,9 @@ PhpEnumType::registerEnumType(Action::class);
 PhpEnumType::registerEnumType('php_enum_gender', Gender::class);
 
 // Don't forget to register the enums for schema operations
-$conn = $em->getConnection();
-$conn->getDatabasePlatform()->registerDoctrineTypeMapping('VARCHAR', Action::class);
-$conn->getDatabasePlatform()->registerDoctrineTypeMapping('VARCHAR', 'php_enum_gender');
+$platform = $em->getConnection()->getDatabasePlatform();
+$platform->registerDoctrineTypeMapping('VARCHAR', Action::class);
+$platform->registerDoctrineTypeMapping('VARCHAR', 'php_enum_gender');
 ```
 
 That will internally register a customized doctrine type. As you can see, it its possible to just pass the FQCN of the enum, making the type use it as the name, but you can also provide a different name.
