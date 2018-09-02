@@ -1,6 +1,31 @@
 ## CHANGELOG
 
 
+## 2.2.1 - 2018-09-02
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* [#24](https://github.com/acelaya/doctrine-enum-type/issues/24) Documented how to register custom types for schema operations.
+* [#25](https://github.com/acelaya/doctrine-enum-type/issues/25) Updated to Infection 0.10
+* [#26](https://github.com/acelaya/doctrine-enum-type/issues/26) Improved badges in readme file.
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.2.0 - 2018-03-12
 
 #### Added
