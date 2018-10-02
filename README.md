@@ -93,7 +93,7 @@ class User
     /**
      * @var Action
      *
-     * @ORM\Column(type=Action::class)
+     * @ORM\Column(type=Action::class, length=10)
      */
     protected $action;
     /**
@@ -161,14 +161,16 @@ If you need more information on custom doctrine column types, read this http://d
 
 ### Customize SQL declaration
 
-By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as as a VARCHAR(255) like this:
+By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as as a VARCHAR like this:
 
 ```php
 public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
 {
-    return $platform->getVarcharTypeDeclarationSQL([]);
+    return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
 }
 ```
+
+This means that you can customize the `length` (which defaults to 255), but not the column type.
 
 If you want something more specific, like a MySQL enum, just extend `PhpEnumType` and overwrite the `getSQLDeclaration()` method with something like this.
 
