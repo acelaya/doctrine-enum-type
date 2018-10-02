@@ -1,6 +1,31 @@
 ## CHANGELOG
 
 
+## 2.2.2 - 2018-10-02
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* *Nothing*
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* *Nothing*
+
+#### Fixed
+
+* [#28](https://github.com/acelaya/doctrine-enum-type/issues/28) Fixed a defect preventing the `length` property from the field declaration to be applied.
+
+    Now, if you declare your field like this `@ORM\Column(type=Action::class, length=16)` the field will respect the length and be mapped to a `VARCHAR(16)`.
+
+
 ## 2.2.1 - 2018-09-02
 
 #### Added
