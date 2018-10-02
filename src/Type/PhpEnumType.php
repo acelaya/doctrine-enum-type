@@ -40,7 +40,7 @@ class PhpEnumType extends Type
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
     {
-        return $platform->getVarcharTypeDeclarationSQL([]);
+        return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
 
     /**
