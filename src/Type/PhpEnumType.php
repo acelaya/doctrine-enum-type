@@ -8,6 +8,11 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;
+use function implode;
+use function is_string;
+use function is_subclass_of;
+use function method_exists;
+use function sprintf;
 
 class PhpEnumType extends Type
 {
@@ -56,7 +61,7 @@ class PhpEnumType extends Type
         }
 
         // If the enumeration provides a casting method, apply it
-        if (\method_exists($this->enumClass, 'castValueIn')) {
+        if (method_exists($this->enumClass, 'castValueIn')) {
             /** @var callable $castValueIn */
             $castValueIn = [$this->enumClass, 'castValueIn'];
             $value = $castValueIn($value);
@@ -69,11 +74,11 @@ class PhpEnumType extends Type
         if (! $isValid) {
             /** @var callable $toArray */
             $toArray = [$this->enumClass, 'toArray'];
-            throw new InvalidArgumentException(\sprintf(
+            throw new InvalidArgumentException(sprintf(
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 $value,
                 $this->enumClass,
-                \implode('", "', $toArray())
+                implode('", "', $toArray())
             ));
         }
 
@@ -87,7 +92,7 @@ class PhpEnumType extends Type
         }
 
         // If the enumeration provides a casting method, apply it
-        if (\method_exists($this->enumClass, 'castValueOut')) {
+        if (method_exists($this->enumClass, 'castValueOut')) {
             /** @var callable $castValueOut */
             $castValueOut = [$this->enumClass, 'castValueOut'];
             return $castValueOut($value);
@@ -108,8 +113,8 @@ class PhpEnumType extends Type
         $typeName = $typeNameOrEnumClass;
         $enumClass = $enumClass ?: $typeNameOrEnumClass;
 
-        if (! \is_subclass_of($enumClass, Enum::class)) {
-            throw new InvalidArgumentException(\sprintf(
+        if (! is_subclass_of($enumClass, Enum::class)) {
+            throw new InvalidArgumentException(sprintf(
                 'Provided enum class "%s" is not valid. Enums must extend "%s"',
                 $enumClass,
                 Enum::class
@@ -132,7 +137,7 @@ class PhpEnumType extends Type
     public static function registerEnumTypes(array $types)
     {
         foreach ($types as $typeName => $enumClass) {
-            $typeName = \is_string($typeName) ? $typeName : $enumClass;
+            $typeName = is_string($typeName) ? $typeName : $enumClass;
             static::registerEnumType($typeName, $enumClass);
         }
     }

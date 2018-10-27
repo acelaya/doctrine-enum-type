@@ -1,5 +1,7 @@
 language: php
 
+sudo: false
+
 branches:
   only:
     - /.*/
@@ -7,8 +9,9 @@ branches:
 php:
   - 7.1
   - 7.2
+  - 7.3
 
-before_script:
+install:
   - composer self-update
   - composer install --no-interaction
 
@@ -16,8 +19,6 @@ script:
   - mkdir build
   - composer ac:ci
 
-after_script:
+after_success:
   - wget https://scrutinizer-ci.com/ocular.phar
   - php ocular.phar code-coverage:upload --format=php-clover build/clover.xml
-
-sudo: false
