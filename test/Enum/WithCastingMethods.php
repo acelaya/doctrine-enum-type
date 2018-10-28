@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace Acelaya\Test\Doctrine\Enum;
 
 use MyCLabs\Enum\Enum;
+use function str_replace;
+use function strtolower;
+use function strtoupper;
 
 /**
  * Class WithCastingMethods
@@ -20,11 +23,11 @@ class WithCastingMethods extends Enum
 
     public static function castValueIn($value)
     {
-        return \strtolower(str_replace(' ', '_', $value));
+        return strtolower(str_replace(' ', '_', $value));
     }
 
     public static function castValueOut(self $value)
     {
-        return \strtoupper(str_replace('_', ' ', (string) $value));
+        return strtoupper(str_replace('_', ' ', (string) $value));
     }
 }
