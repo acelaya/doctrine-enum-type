@@ -15,6 +15,10 @@ use MyCLabs\Enum\Enum;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
+use ReflectionProperty;
+use stdClass;
+use function implode;
+use function sprintf;
 
 class PhpEnumTypeTest extends TestCase
 {
@@ -28,10 +32,10 @@ class PhpEnumTypeTest extends TestCase
         $this->platform = $this->prophesize(AbstractPlatform::class);
 
         // Before every test, clean registered types
-        $refProp = new \ReflectionProperty(Type::class, '_typeObjects');
+        $refProp = new ReflectionProperty(Type::class, '_typeObjects');
         $refProp->setAccessible(true);
         $refProp->setValue(null, []);
-        $refProp = new \ReflectionProperty(Type::class, '_typesMap');
+        $refProp = new ReflectionProperty(Type::class, '_typesMap');
         $refProp->setAccessible(true);
         $refProp->setValue(null, []);
     }
@@ -85,10 +89,10 @@ class PhpEnumTypeTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
             'Provided enum class "%s" is not valid. Enums must extend "%s"',
-            \stdClass::class,
+            stdClass::class,
             Enum::class
         ));
-        PhpEnumType::registerEnumType(\stdClass::class);
+        PhpEnumType::registerEnumType(stdClass::class);
     }
 
     /**
