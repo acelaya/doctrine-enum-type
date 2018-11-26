@@ -10,6 +10,7 @@
 
 * [#31](https://github.com/acelaya/doctrine-enum-type/issues/31) Performance and maintainability slightly improved by enforcing via code sniffer that all global namespace classes, functions and constants are explicitly imported.
 * [#32](https://github.com/acelaya/doctrine-enum-type/issues/32) Updated infection to v0.11
+* [#34](https://github.com/acelaya/doctrine-enum-type/issues/34) Added dependency on [Shlinkio](https://github.com/shlinkio/php-coding-standard) coding standard.
 
 #### Deprecated
 

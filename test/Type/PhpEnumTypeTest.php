@@ -22,9 +22,7 @@ use function sprintf;
 
 class PhpEnumTypeTest extends TestCase
 {
-    /**
-     * @var ObjectProphecy
-     */
+    /** @var ObjectProphecy */
     protected $platform;
 
     public function setUp()
