@@ -16,13 +16,9 @@ use function sprintf;
 
 class PhpEnumType extends Type
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $name;
-    /**
-     * @var string
-     */
+    /** @var string */
     protected $enumClass = Enum::class;
 
     /**
