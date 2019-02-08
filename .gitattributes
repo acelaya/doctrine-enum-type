@@ -3,8 +3,12 @@
 /.scrutinizer.yml export-ignore
 /.travis.yml export-ignore
 /composer.lock export-ignore
+/docker-compose.yml export-ignore
+/docker-compose.override.yml.dist export-ignore
+/indocker export-ignore
 /infection.json export-ignore
 /CHANGELOG.md export-ignore
 /phpcs.xml export-ignore
 /phpunit.xml export-ignore
+/phpstan.neon export-ignore
 /test export-ignore

@@ -19,9 +19,9 @@
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
-        "infection/infection": "^0.11.0",
-        "phpstan/phpstan": "^0.10.0",
-        "phpunit/phpunit": "^7.0",
+        "infection/infection": "^0.12.0",
+        "phpstan/phpstan": "^0.11.1",
+        "phpunit/phpunit": "^8.0 || ^7.0",
         "shlinkio/php-coding-standard": "1.0.0"
     },
     "autoload": {
@@ -38,22 +38,23 @@
         "sort-packages": true
     },
     "scripts": {
-        "ac:ci": [
-            "@ac:cs",
-            "@ac:stan",
-            "@ac:test:ci",
-            "@ac:infect"
+        "ci": [
+            "@cs",
+            "@stan",
+            "@test:ci",
+            "@infect:ci"
         ],
 
-        "ac:cs": "phpcs --colors",
-        "ac:cs:fix": "phpcbf",
-        "ac:stan": "phpstan analyse src/ --level=6",
+        "cs": "phpcs --colors",
+        "cs:fix": "phpcbf",
+        "stan": "phpstan analyse src/ --level=6",
 
-        "ac:test": "phpunit --colors=always",
-        "ac:test:pretty": "phpunit --colors=always --coverage-html=build/html",
-        "ac:test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
+        "test": "phpunit --colors=always",
+        "test:pretty": "phpunit --colors=always --coverage-html=build/html",
+        "test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
 
-        "ac:infect": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --coverage=build",
-        "ac:infect:show": "infection --threads=4 --min-msi=90 --log-verbosity=2 --only-covered --show-mutations"
+        "infect": "infection --threads=4 --min-msi=90 --log-verbosity=default --only-covered",
+        "infect:ci": "infection --threads=4 --min-msi=90 --log-verbosity=default --only-covered --coverage=build",
+        "infect:show": "infection --threads=4 --min-msi=90 --log-verbosity=default --only-covered --show-mutations"
     }
 }
