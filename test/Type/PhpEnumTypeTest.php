@@ -25,7 +25,7 @@ class PhpEnumTypeTest extends TestCase
     /** @var ObjectProphecy */
     protected $platform;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->platform = $this->prophesize(AbstractPlatform::class);
 
@@ -41,7 +41,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function enumTypesAreProperlyRegistered()
+    public function enumTypesAreProperlyRegistered(): void
     {
         $this->assertFalse(Type::hasType(Action::class));
         $this->assertFalse(Type::hasType('gender'));
@@ -58,7 +58,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function enumTypesAreProperlyCustomizedWhenRegistered()
+    public function enumTypesAreProperlyCustomizedWhenRegistered(): void
     {
         $this->assertFalse(Type::hasType(Action::class));
         $this->assertFalse(Type::hasType(Gender::class));
@@ -82,7 +82,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function registerInvalidEnumThrowsException()
+    public function registerInvalidEnumThrowsException(): void
     {
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage(sprintf(
@@ -96,7 +96,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function getSQLDeclarationReturnsValueFromPlatform()
+    public function getSQLDeclarationReturnsValueFromPlatform(): void
     {
         $this->platform->getVarcharTypeDeclarationSQL(Argument::cetera())->willReturn('declaration');
 
@@ -112,7 +112,7 @@ class PhpEnumTypeTest extends TestCase
      * @param $phpValue
      * @param string $expectedValue
      */
-    public function convertToDatabaseValueParsesEnum(string $typeName, $phpValue, string $expectedValue)
+    public function convertToDatabaseValueParsesEnum(string $typeName, $phpValue, string $expectedValue): void
     {
         $type = $this->getType($typeName);
 
@@ -136,7 +136,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToDatabaseValueReturnsNullWhenNullIsProvided()
+    public function convertToDatabaseValueReturnsNullWhenNullIsProvided(): void
     {
         $type = $this->getType(Action::class);
 
@@ -146,7 +146,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToPHPValueWithValidValueReturnsParsedData()
+    public function convertToPHPValueWithValidValueReturnsParsedData(): void
     {
         $type = $this->getType(Action::class);
 
@@ -163,7 +163,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToPHPValueWithNullReturnsNull()
+    public function convertToPHPValueWithNullReturnsNull(): void
     {
         $type = $this->getType(Action::class);
 
@@ -174,7 +174,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToPHPValueWithInvalidValueThrowsException()
+    public function convertToPHPValueWithInvalidValueThrowsException(): void
     {
         $type = $this->getType(Action::class);
 
@@ -190,7 +190,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToPHPValueWithCastingMethodProperlyCastsIt()
+    public function convertToPHPValueWithCastingMethodProperlyCastsIt(): void
     {
         $type = $this->getType(WithCastingMethods::class);
 
@@ -208,7 +208,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function convertToDatabaseValueWithCastingMethodProperlyCastsIt()
+    public function convertToDatabaseValueWithCastingMethodProperlyCastsIt(): void
     {
         $type = $this->getType(WithCastingMethods::class);
 
@@ -219,7 +219,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function usingChildCustomEnumTypeRegisteredValueIsCorrect()
+    public function usingChildCustomEnumTypeRegisteredValueIsCorrect(): void
     {
         MyCustomEnumType::registerEnumType(Action::class);
         $type = MyCustomEnumType::getType(Action::class);
@@ -234,7 +234,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      */
-    public function SQLCommentHintIsAlwaysRequired()
+    public function SQLCommentHintIsAlwaysRequired(): void
     {
         $type = $this->getType(Gender::class);
 

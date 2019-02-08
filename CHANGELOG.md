@@ -1,6 +1,10 @@
 ## CHANGELOG
 
-## [Unreleased]
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
+
+## 2.2.3 - 2019-02-08
 
 #### Added
 
@@ -8,6 +12,7 @@
 
 #### Changed
 
+* [#36](https://github.com/acelaya/doctrine-enum-type/issues/36) Updated dev dependencies.
 * [#31](https://github.com/acelaya/doctrine-enum-type/issues/31) Performance and maintainability slightly improved by enforcing via code sniffer that all global namespace classes, functions and constants are explicitly imported.
 * [#32](https://github.com/acelaya/doctrine-enum-type/issues/32) Updated infection to v0.11
 * [#34](https://github.com/acelaya/doctrine-enum-type/issues/34) Added dependency on [Shlinkio](https://github.com/shlinkio/php-coding-standard) coding standard.

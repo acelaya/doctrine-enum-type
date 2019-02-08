@@ -11,13 +11,16 @@ php:
   - 7.2
   - 7.3
 
+before_install:
+  - phpenv config-rm xdebug.ini || return 0
+
 install:
   - composer self-update
   - composer install --no-interaction
 
 script:
   - mkdir build
-  - composer ac:ci
+  - composer ci
 
 after_success:
   - wget https://scrutinizer-ci.com/ocular.phar

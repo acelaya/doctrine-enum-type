@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  doctrine_enum_type_php:
+    container_name: doctrine_enum_type_php
+    image: composer:1.8.3
+    volumes:
+      - ./:/app
