@@ -121,16 +121,14 @@ class PhpEnumTypeTest extends TestCase
         $this->assertEquals($expectedValue, $actualValue);
     }
 
-    public function provideValues(): array
+    public function provideValues(): iterable
     {
-        return [
-            [Action::class, Action::CREATE(), Action::CREATE],
-            [Action::class, Action::READ(), Action::READ],
-            [Action::class, Action::UPDATE(), Action::UPDATE],
-            [Action::class, Action::DELETE(), Action::DELETE],
-            [Gender::class, Gender::FEMALE(), Gender::FEMALE],
-            [Gender::class, Gender::MALE(), Gender::MALE],
-        ];
+        yield [Action::class, Action::CREATE(), Action::CREATE];
+        yield [Action::class, Action::READ(), Action::READ];
+        yield [Action::class, Action::UPDATE(), Action::UPDATE];
+        yield [Action::class, Action::DELETE(), Action::DELETE];
+        yield [Gender::class, Gender::FEMALE(), Gender::FEMALE];
+        yield [Gender::class, Gender::MALE(), Gender::MALE];
     }
 
     /**
