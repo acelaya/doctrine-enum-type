@@ -3,8 +3,6 @@
 [![Build Status](https://img.shields.io/travis/acelaya/doctrine-enum-type/master.svg?style=flat-square)](https://travis-ci.org/acelaya/doctrine-enum-type)
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/?branch=master)
-[![Infection](https://img.shields.io/badge/Infection-enabled-blue.svg?style=flat-square)](https://github.com/infection/infection)
-[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-blue.svg?style=flat-square)](https://github.com/phpstan/phpstan)
 [![Latest Stable Version](https://img.shields.io/github/release/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
 [![Total Downloads](https://img.shields.io/packagist/dt/acelaya/doctrine-enum-type.svg?style=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
 [![License](https://img.shields.io/github/license/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/master/LICENSE)
