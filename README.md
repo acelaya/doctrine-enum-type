@@ -159,7 +159,7 @@ If you need more information on custom doctrine column types, read this http://d
 
 ### Customize SQL declaration
 
-By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as as a VARCHAR like this:
+By default, the `Acelaya\Doctrine\Type\PhpEnumType` class defines all enums as a VARCHAR like this:
 
 ```php
 public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
