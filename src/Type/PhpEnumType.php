@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Doctrine\Type;
@@ -8,6 +9,7 @@ use Doctrine\DBAL\DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;
+
 use function implode;
 use function is_string;
 use function is_subclass_of;
