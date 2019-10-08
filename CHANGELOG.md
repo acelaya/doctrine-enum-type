@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [Unreleased]
+
+#### Added
+
+* [#43](https://github.com/acelaya/doctrine-enum-type/issues/43) Added PHP 7.4 to the build matrix.
+
+#### Changed
+
+* [#41](https://github.com/acelaya/doctrine-enum-type/issues/41) Updated infection to v0.14
+* [#44](https://github.com/acelaya/doctrine-enum-type/issues/44) Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.0.
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#40](https://github.com/acelaya/doctrine-enum-type/issues/40) Dropped support for PHP 7.1
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.2.3 - 2019-02-08
 
 #### Added

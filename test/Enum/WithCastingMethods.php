@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Test\Doctrine\Enum;
 
 use MyCLabs\Enum\Enum;
+
 use function str_replace;
 use function strtolower;
 use function strtoupper;

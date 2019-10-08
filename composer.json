@@ -14,15 +14,15 @@
         "enum"
     ],
     "require": {
-        "php": "^7.1",
+        "php": "^7.2",
         "doctrine/dbal": "^2.6",
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
-        "infection/infection": "^0.12.0",
+        "infection/infection": "^0.14.1",
         "phpstan/phpstan": "^0.11.1",
-        "phpunit/phpunit": "^8.0 || ^7.0",
-        "shlinkio/php-coding-standard": "1.0.0"
+        "phpunit/phpunit": "^8.0",
+        "shlinkio/php-coding-standard": "~2.0.0"
     },
     "autoload": {
         "psr-4": {

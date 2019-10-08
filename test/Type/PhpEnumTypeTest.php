@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Test\Doctrine\Type;
@@ -17,6 +18,7 @@ use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReflectionProperty;
 use stdClass;
+
 use function implode;
 use function sprintf;
 
