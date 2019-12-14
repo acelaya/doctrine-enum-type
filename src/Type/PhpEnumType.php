@@ -23,22 +23,13 @@ class PhpEnumType extends Type
     /** @var string */
     protected $enumClass = Enum::class;
 
-    /**
-     * Gets the name of this type.
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return $this->name ?: 'enum';
     }
 
     /**
-     * Gets the SQL declaration snippet for a field of this type.
-     *
-     * @param array $fieldDeclaration The field declaration.
-     * @param AbstractPlatform $platform The currently used database platform.
-     *
+     * @param mixed[] $fieldDeclaration
      * @return string
      */
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
@@ -48,7 +39,6 @@ class PhpEnumType extends Type
 
     /**
      * @param string|null $value
-     * @param AbstractPlatform $platform
      * @return mixed
      * @throws InvalidArgumentException
      */
@@ -101,12 +91,10 @@ class PhpEnumType extends Type
     }
 
     /**
-     * @param string $typeNameOrEnumClass
-     * @param string|null $enumClass
      * @throws InvalidArgumentException
      * @throws DBALException
      */
-    public static function registerEnumType($typeNameOrEnumClass, $enumClass = null)
+    public static function registerEnumType(string $typeNameOrEnumClass, ?string $enumClass = null): void
     {
         $typeName = $typeNameOrEnumClass;
         $enumClass = $enumClass ?: $typeNameOrEnumClass;
@@ -128,11 +116,11 @@ class PhpEnumType extends Type
     }
 
     /**
-     * @param array $types
+     * @param array<string|int, string> $types
      * @throws InvalidArgumentException
      * @throws DBALException
      */
-    public static function registerEnumTypes(array $types)
+    public static function registerEnumTypes(array $types): void
     {
         foreach ($types as $typeName => $enumClass) {
             $typeName = is_string($typeName) ? $typeName : $enumClass;
@@ -144,7 +132,7 @@ class PhpEnumType extends Type
      * @param AbstractPlatform $platform
      * @return boolean
      */
-    public function requiresSQLCommentHint(AbstractPlatform $platform)
+    public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {
         return true;
     }
