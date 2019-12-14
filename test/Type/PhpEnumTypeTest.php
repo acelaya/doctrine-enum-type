@@ -16,7 +16,7 @@ use MyCLabs\Enum\Enum;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\Prophecy\ObjectProphecy;
-use ReflectionProperty;
+use ReflectionObject;
 use stdClass;
 
 use function implode;
@@ -32,12 +32,11 @@ class PhpEnumTypeTest extends TestCase
         $this->platform = $this->prophesize(AbstractPlatform::class);
 
         // Before every test, clean registered types
-        $refProp = new ReflectionProperty(Type::class, '_typeObjects');
-        $refProp->setAccessible(true);
-        $refProp->setValue(null, []);
-        $refProp = new ReflectionProperty(Type::class, '_typesMap');
-        $refProp->setAccessible(true);
-        $refProp->setValue(null, []);
+        $typeRegistry = Type::getTypeRegistry();
+        $ref = new ReflectionObject($typeRegistry);
+        $instancesProp = $ref->getProperty('instances');
+        $instancesProp->setAccessible(true);
+        $instancesProp->setValue($typeRegistry, []);
     }
 
     /**

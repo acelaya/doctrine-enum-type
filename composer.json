@@ -19,8 +19,8 @@
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
-        "infection/infection": "^0.14.1",
-        "phpstan/phpstan": "^0.11.1",
+        "infection/infection": "^0.15.0",
+        "phpstan/phpstan": "^0.12.0",
         "phpunit/phpunit": "^8.0",
         "shlinkio/php-coding-standard": "~2.0.0"
     },
@@ -47,11 +47,11 @@
 
         "cs": "phpcs --colors",
         "cs:fix": "phpcbf",
-        "stan": "phpstan analyse src/ --level=6",
+        "stan": "phpstan analyse src/ --level=8",
 
         "test": "phpunit --colors=always",
         "test:pretty": "phpunit --colors=always --coverage-html=build/html",
-        "test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/phpunit.junit.xml",
+        "test:ci": "phpdbg -qrr vendor/bin/phpunit --colors=always --coverage-clover=build/clover.xml --coverage-xml=build/coverage-xml --log-junit=build/junit.xml",
 
         "infect": "infection --threads=4 --min-msi=90 --log-verbosity=default --only-covered",
         "infect:ci": "infection --threads=4 --min-msi=90 --log-verbosity=default --only-covered --coverage=build",

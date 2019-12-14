@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 
 #### Changed
 
-* [#41](https://github.com/acelaya/doctrine-enum-type/issues/41) Updated infection to v0.14
+* [#41](https://github.com/acelaya/doctrine-enum-type/issues/41) Updated infection to v0.15 and phpstan 0.12
 * [#44](https://github.com/acelaya/doctrine-enum-type/issues/44) Updated to [shlinkio/php-coding-standard](https://github.com/shlinkio/php-coding-standard) v2.0.
 
 #### Deprecated
