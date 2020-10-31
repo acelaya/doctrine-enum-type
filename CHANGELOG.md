@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 2.4.0 - 2020-10-31
+
+#### Added
+
+* *Nothing*
+
+#### Changed
+
+* [#51](https://github.com/acelaya/doctrine-enum-type/issues/51) Updated all dependencies and added support for composer 2.
+* [#50](https://github.com/acelaya/doctrine-enum-type/issues/50) Added support for PHP 8.
+
+#### Deprecated
+
+* *Nothing*
+
+#### Removed
+
+* [#52](https://github.com/acelaya/doctrine-enum-type/issues/52) Dropped support for PHP 7.2 and 7.3
+
+#### Fixed
+
+* *Nothing*
+
+
 ## 2.3.0 - 2019-12-14
 
 #### Added
