@@ -23,12 +23,18 @@ class WithCastingMethods extends Enum
     public const FOO = 'foo_value';
     public const BAR = 'bar_value';
 
-    public static function castValueIn($value)
+    /**
+     * @param mixed $value
+     */
+    public static function castValueIn($value): string
     {
         return strtolower(str_replace(' ', '_', $value));
     }
 
-    public static function castValueOut(self $value)
+    /**
+     * @param mixed WithCas
+     */
+    public static function castValueOut(self $value): string
     {
         return strtoupper(str_replace('_', ' ', (string) $value));
     }

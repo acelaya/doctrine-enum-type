@@ -16,14 +16,14 @@ class MyCustomEnumType extends PhpEnumType
     /**
      * {@inheritdoc}
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         $values = call_user_func([$this->enumClass, 'toArray']);
 
         return sprintf(
             'ENUM("%s") COMMENT "%s"',
             implode('", "', $values),
-            $this->getName()
+            $this->getName(),
         );
     }
 }
