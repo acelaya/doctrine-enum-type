@@ -5,9 +5,8 @@ branches:
     - /.*/
 
 php:
-  - '7.2'
-  - '7.3'
   - '7.4'
+  - 'nightly'
 
 before_install:
   - phpenv config-rm xdebug.ini || return 0

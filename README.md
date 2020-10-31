@@ -26,6 +26,7 @@ Let's imagine we have this two enums.
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Enum;
@@ -43,6 +44,7 @@ class Action extends Enum
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Enum;
@@ -60,6 +62,7 @@ And this entity, with a column of each entity type.
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Entity;
@@ -109,6 +112,7 @@ The column type of the action property is the FQCN of the `Action` enum, and the
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 // in bootstrapping code
@@ -137,6 +141,7 @@ Alternatively you can use the `Acelaya\Doctrine\Type\PhpEnumType::registerEnumTy
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 // ...
@@ -174,6 +179,7 @@ If you want something more specific, like a MySQL enum, just extend `PhpEnumType
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace App\Type;
@@ -181,14 +187,18 @@ namespace App\Type;
 use Acelaya\Doctrine\Type\PhpEnumType;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 
+use function call_user_func;
+use function implode;
+use function sprintf;
+
 class MyPhpEnumType extends PhpEnumType
 {
     public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
-        $values = \call_user_func([$this->enumClass, 'toArray']);
-        return \sprintf(
+        $values = call_user_func([$this->enumClass, 'toArray']);
+        return sprintf(
             'ENUM("%s") COMMENT "%s"',
-            \implode('", "', $values),
+            implode('", "', $values),
             $this->getName()
         );
     }
@@ -199,6 +209,7 @@ Then remember to register the enums with your own class.
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 // ...
@@ -223,6 +234,7 @@ For example, let's imagine we have this enum:
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Enum;
@@ -242,6 +254,7 @@ In order to get it working, you have to add the `castValueIn` static method in t
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Enum;
@@ -253,7 +266,7 @@ class Status extends Enum
     public const SUCCESS = 1;
     public const ERROR = 2;
 
-    public static function castValueIn($value)
+    public static function castValueIn($value): int
     {
         return (int) $value;
     }
@@ -266,20 +279,23 @@ The same way, a `castValueOut` method can be defined in order to modify the valu
 
 ```php
 <?php
+
 declare(strict_types=1);
 
 namespace Acelaya\Enum;
 
 use MyCLabs\Enum\Enum;
 
+use function strtolower;
+
 class Gender extends Enum
 {
     public const MALE = 'male';
     public const FEMALE = 'female';
 
-    public static function castValueOut(self $value)
+    public static function castValueOut(self $value): string
     {
-        return \strtolower((string) $value);
+        return strtolower((string) $value);
     }
 }
 ```
@@ -290,12 +306,12 @@ These methods can also be used to customize the values. For example, if you used
 <?php
 
 // ...
-public static function castValueIn($value)
+public static function castValueIn($value): string
 {
     return \str_replace('_', '-', $value);
 }
 
-public static function castValueOut(self $value)
+public static function castValueOut(self $value): string
 {
     return \str_replace('-', '_', (string) $value);
 }

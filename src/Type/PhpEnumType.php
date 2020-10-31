@@ -18,10 +18,8 @@ use function sprintf;
 
 class PhpEnumType extends Type
 {
-    /** @var string */
-    private $name;
-    /** @var string */
-    protected $enumClass = Enum::class;
+    private string $name;
+    protected string $enumClass = Enum::class;
 
     public function getName(): string
     {
@@ -30,19 +28,18 @@ class PhpEnumType extends Type
 
     /**
      * @param mixed[] $fieldDeclaration
-     * @return string
      */
-    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform)
+    public function getSQLDeclaration(array $fieldDeclaration, AbstractPlatform $platform): string
     {
         return $platform->getVarcharTypeDeclarationSQL($fieldDeclaration);
     }
 
     /**
-     * @param string|null $value
+     * @param mixed $value
      * @return mixed
      * @throws InvalidArgumentException
      */
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform) // phpcs:ignore
     {
         if ($value === null) {
             return null;
@@ -66,13 +63,17 @@ class PhpEnumType extends Type
                 'The value "%s" is not valid for the enum "%s". Expected one of ["%s"]',
                 $value,
                 $this->enumClass,
-                implode('", "', $toArray())
+                implode('", "', $toArray()),
             ));
         }
 
         return new $this->enumClass($value);
     }
 
+    /**
+     * @param mixed $value
+     * @return mixed
+     */
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value === null) {
@@ -103,7 +104,7 @@ class PhpEnumType extends Type
             throw new InvalidArgumentException(sprintf(
                 'Provided enum class "%s" is not valid. Enums must extend "%s"',
                 $enumClass,
-                Enum::class
+                Enum::class,
             ));
         }
 
@@ -129,8 +130,6 @@ class PhpEnumType extends Type
     }
 
     /**
-     * @param AbstractPlatform $platform
-     * @return boolean
      */
     public function requiresSQLCommentHint(AbstractPlatform $platform): bool
     {

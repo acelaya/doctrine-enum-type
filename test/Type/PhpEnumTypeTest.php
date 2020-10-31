@@ -15,6 +15,7 @@ use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;
 use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
 use ReflectionObject;
 use stdClass;
@@ -24,8 +25,9 @@ use function sprintf;
 
 class PhpEnumTypeTest extends TestCase
 {
-    /** @var ObjectProphecy */
-    protected $platform;
+    use ProphecyTrait;
+
+    protected ObjectProphecy $platform;
 
     public function setUp(): void
     {
@@ -89,7 +91,7 @@ class PhpEnumTypeTest extends TestCase
         $this->expectExceptionMessage(sprintf(
             'Provided enum class "%s" is not valid. Enums must extend "%s"',
             stdClass::class,
-            Enum::class
+            Enum::class,
         ));
         PhpEnumType::registerEnumType(stdClass::class);
     }
@@ -109,9 +111,7 @@ class PhpEnumTypeTest extends TestCase
     /**
      * @test
      * @dataProvider provideValues
-     * @param string $typeName
-     * @param $phpValue
-     * @param string $expectedValue
+     * @param mixed $phpValue
      */
     public function convertToDatabaseValueParsesEnum(string $typeName, $phpValue, string $expectedValue): void
     {
@@ -181,7 +181,7 @@ class PhpEnumTypeTest extends TestCase
         $this->expectExceptionMessage(sprintf(
             'The value "invalid" is not valid for the enum "%s". Expected one of ["%s"]',
             Action::class,
-            implode('", "', Action::toArray())
+            implode('", "', Action::toArray()),
         ));
         $type->convertToPHPValue('invalid', $this->platform->reveal());
     }
@@ -226,7 +226,7 @@ class PhpEnumTypeTest extends TestCase
         $this->assertInstanceOf(MyCustomEnumType::class, $type);
         $this->assertEquals(
             'ENUM("create", "read", "update", "delete") COMMENT "Acelaya\Test\Doctrine\Enum\Action"',
-            $type->getSQLDeclaration([], $this->platform->reveal())
+            $type->getSQLDeclaration([], $this->platform->reveal()),
         );
     }
 

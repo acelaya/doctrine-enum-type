@@ -19,7 +19,10 @@ class WithIntegerValues extends Enum
     public const ONE = 1;
     public const TWO = 2;
 
-    public static function castValueIn($value)
+    /**
+     * @param mixed $value
+     */
+    public static function castValueIn($value): int
     {
         return (int) $value;
     }
