@@ -19,7 +19,7 @@
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
-        "infection/infection": "^0.19.2",
+        "infection/infection": "^0.20",
         "phpspec/prophecy-phpunit": "^2.0",
         "phpstan/phpstan": "^0.12.52",
         "phpunit/phpunit": "^9.4",
