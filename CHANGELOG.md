@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com), and this 
 * *Nothing*
 
 ### Changed
-* [#58](https://github.com/acelaya/doctrine-enum-type/issues/58) Automated releases.
+* [#57](https://github.com/acelaya/doctrine-enum-type/issues/57) Automated releases.
+* [#58](https://github.com/acelaya/doctrine-enum-type/issues/58) Migrated build from travis to Github Actions.
 
 ### Deprecated
 * *Nothing*

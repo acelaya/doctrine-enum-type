@@ -1,7 +1,6 @@
 # Doctrine Enum Type
 
-[![Build Status](https://img.shields.io/travis/com/acelaya/doctrine-enum-type/main.svg?style=flat-square)](https://travis-ci.com/acelaya/doctrine-enum-type)
-[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/)
+[![Build Status](https://img.shields.io/github/workflow/status/] - acelaya/doctrine-enum-type/Continuous%20integration/develop?logo=github&style=flat-square)](https://github.com/] - acelaya/doctrine-enum-type/actions?query=workflow%3A%22Continuous+integration%22)
 [![Code Coverage](https://img.shields.io/scrutinizer/coverage/g/acelaya/doctrine-enum-type.svg?style=flat-square)](https://scrutinizer-ci.com/g/acelaya/doctrine-enum-type/)
 [![Latest Stable Version](https://img.shields.io/github/release/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
 [![Total Downloads](https://img.shields.io/packagist/dt/acelaya/doctrine-enum-type.svg?style=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
