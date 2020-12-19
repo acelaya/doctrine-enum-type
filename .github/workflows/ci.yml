@@ -83,6 +83,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build-${{ matrix.php-version }}
+          path: build
       - run: composer infect:ci
 
   upload-coverage:
@@ -104,7 +105,7 @@ jobs:
       - uses: actions/download-artifact@v2
         with:
           name: build-${{ matrix.php-version }}
-      - run: mv build/* build
+          path: build
       - run: ls -la build
         # TODO Upload coverage to coveralls
 
