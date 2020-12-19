@@ -1,7 +1,7 @@
 # Doctrine Enum Type
 
 [![Build Status](https://img.shields.io/github/workflow/status/acelaya/doctrine-enum-type/Continuous%20integration/main?logo=github&style=flat-square)](https://github.com/acelaya/doctrine-enum-type/actions?query=workflow%3A%22Continuous+integration%22)
-[![Code Coverage](https://img.shields.io/codecov/c/gh/acelaya/doctrine-enum-types/main?style=flat-square)](https://app.codecov.io/gh/acelaya/doctrine-enum-type)
+[![Code Coverage](https://img.shields.io/codecov/c/gh/acelaya/doctrine-enum-type/main?style=flat-square)](https://app.codecov.io/gh/acelaya/doctrine-enum-type)
 [![Latest Stable Version](https://img.shields.io/github/release/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/releases/latest)
 [![Total Downloads](https://img.shields.io/packagist/dt/acelaya/doctrine-enum-type.svg?style=flat-square)](https://packagist.org/packages/acelaya/doctrine-enum-type)
 [![License](https://img.shields.io/github/license/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/main/LICENSE)
