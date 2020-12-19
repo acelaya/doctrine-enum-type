@@ -57,7 +57,7 @@ jobs:
           tools: composer
           coverage: none
       - run: composer install --no-interaction --prefer-dist
-      - run: composer test:unit:ci
+      - run: composer test:ci
       - uses: actions/upload-artifact@v2
         with:
           name: build-${{ matrix.php-version }}
