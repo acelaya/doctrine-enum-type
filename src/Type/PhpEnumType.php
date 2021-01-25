@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Acelaya\Doctrine\Type;
 
 use Acelaya\Doctrine\Exception\InvalidArgumentException;
-use Doctrine\DBAL\DBALException;
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\Type;
 use MyCLabs\Enum\Enum;

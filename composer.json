@@ -15,7 +15,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "doctrine/dbal": "^2.6",
+        "doctrine/dbal": "^2.12",
         "myclabs/php-enum": "^1.4"
     },
     "require-dev": {
