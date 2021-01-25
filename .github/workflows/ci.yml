@@ -62,7 +62,7 @@ jobs:
       - run: composer test:ci
       - uses: actions/upload-artifact@v2
         with:
-          name: build-${{ matrix.php-version }}
+          name: build-${{ matrix.php-version }}-${{ matrix.deps }}
           path: build
 
   mutation-tests:
@@ -87,7 +87,7 @@ jobs:
         run: composer update --no-interaction --prefer-lowest --prefer-stable
       - uses: actions/download-artifact@v2
         with:
-          name: build-${{ matrix.php-version }}
+          name: build-${{ matrix.php-version }}-${{ matrix.deps }}
           path: build
       - run: composer infect:ci
 
@@ -108,7 +108,7 @@ jobs:
           coverage: pcov
       - uses: actions/download-artifact@v2
         with:
-          name: build-${{ matrix.php-version }}
+          name: build-${{ matrix.php-version }}-highest
           path: build
       - name: Publish coverage
         uses: codecov/codecov-action@v1
@@ -123,7 +123,8 @@ jobs:
     strategy:
       matrix:
         php-version: ['7.4', '8.0']
+        deps: [ 'lowest', 'highest' ]
     steps:
       - uses: geekyeggo/delete-artifact@v1
         with:
-          name: build-${{ matrix.php-version }}
+          name: build-${{ matrix.php-version }}-${{ matrix.deps }}
