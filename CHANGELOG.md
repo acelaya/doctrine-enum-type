@@ -4,9 +4,9 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com), and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [Unreleased]
+## [2.5.0] - 2021-01-25
 ### Added
-* *Nothing*
+* [#60](https://github.com/acelaya/doctrine-enum-type/issues/60) Added support for doctrine-dbal 3.0.
 
 ### Changed
 * [#57](https://github.com/acelaya/doctrine-enum-type/issues/57) Automated releases.
