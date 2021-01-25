@@ -72,7 +72,6 @@ jobs:
     strategy:
       matrix:
         php-version: ['7.4', '8.0']
-        deps: [ 'lowest', 'highest' ]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -83,11 +82,9 @@ jobs:
           tools: composer
           coverage: none
       - run: composer install --no-interaction --prefer-dist
-      - if: ${{ matrix.deps == 'lowest' }}
-        run: composer update --no-interaction --prefer-lowest --prefer-stable
       - uses: actions/download-artifact@v2
         with:
-          name: build-${{ matrix.php-version }}-${{ matrix.deps }}
+          name: build-${{ matrix.php-version }}-highest
           path: build
       - run: composer infect:ci
 
