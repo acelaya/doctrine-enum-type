@@ -15,8 +15,8 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "doctrine/dbal": "^2.12",
-        "myclabs/php-enum": "^1.4"
+        "doctrine/dbal": "^2.12 || ^3.0",
+        "myclabs/php-enum": "^1.7"
     },
     "require-dev": {
         "infection/infection": "^0.20",
