@@ -9,6 +9,8 @@
 
 This package provides a base implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
 
+If you need support for native PHP 8.1 enums, consider using https://github.com/bpolaszek/doctrine-native-enums
+
 ### Installation
 
 The recommended installation method is by using [composer](https://getcomposer.org/)
