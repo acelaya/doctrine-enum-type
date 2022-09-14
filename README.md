@@ -7,14 +7,11 @@
 [![License](https://img.shields.io/github/license/acelaya/doctrine-enum-type.svg?style=flat-square)](https://github.com/acelaya/doctrine-enum-type/blob/main/LICENSE)
 [![Paypal Donate](https://img.shields.io/badge/Donate-paypal-blue.svg?style=flat-square&logo=paypal&colorA=cccccc)](https://acel.me/donate)
 
+## ⚠️ This package is no longer relevant since PHP now has native enums and doctrine officially supports them
+
+https://www.doctrine-project.org/2022/01/11/orm-2.11.html
+
 This package provides a base implementation to define doctrine entity column types that are mapped to `MyCLabs\Enum\Enum` objects. That class is defined in the fantastic [myclabs/php-enum](https://github.com/myclabs/php-enum) package.
-
-If you need support for native PHP 8.1 enums, consider these options:
-
-* For plain doctrine/dbal: https://github.com/bpolaszek/doctrine-native-enums
-* If you can also use doctrine/orm, it has native support since v2.11: https://www.doctrine-project.org/2022/01/11/orm-2.11.html
-
-> This library will be maintained until PHP 7.4 EOL. It's strongly recommended for you to update to PHP 8.1 and migrate to one of the options above.
 
 ### Installation
 
